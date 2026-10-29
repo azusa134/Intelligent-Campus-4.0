@@ -74,6 +74,7 @@
 - 实现统一走 `openDetailLayer({ kind, id, html, bg, heroHTML, from, bind })` → `startDetail()` → `closeDetail()`，四个模块共用，不得各写一套；
 - 关闭时按 `kind` 找回对应卡片（`open-post` / `open-item` / `open-errand` / `open-shop`）飞回原位置；找不到卡片（如从「我的发布」弹层打开）则退化为淡出；
 - 详情底部操作统一用 `.detail__bar.detail__bar--actions`；详情内再打开浮层时，`#sheetRoot` 会自动加 `is-over-detail` 抬到最上层。
+- 详情层的顶部返回栏与底部操作栏都是 `position:fixed`，锚定视口、不随内容滚动。**`.detail` 不能使用 `will-change: transform`（或任何 transform / filter）**——那会让它变成 fixed 子元素的包含块，导致两条栏跟着内容滚走；需要合成提示时用 `will-change: opacity`。
 
 ### 3.5 页面与浮层
 

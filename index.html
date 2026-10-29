@@ -1267,6 +1267,60 @@ body.detail-lock .toast-root{bottom:auto;top:calc(14px + env(safe-area-inset-top
   .cal-card__item{padding:9px 4px}
   .cal-card__item b{font-size:12.5px}
 }
+
+/* 15.11 新生必看：指南卡 + 新生问答 */
+.g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.g-card{display:flex;align-items:flex-start;gap:9px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fff;text-align:left;transition:transform .16s,border-color .2s,box-shadow .2s}
+.g-card:hover{transform:translateY(-2px);border-color:#CFE0F0;box-shadow:var(--shadow-sm)}
+.g-ico{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;flex:none;overflow:hidden}
+.g-ico svg{width:84%;height:84%}
+.g-main{flex:1;min-width:0}
+.g-tag{display:block;font-family:var(--mono);font-size:7.2px;letter-spacing:.06em;color:var(--ink-3);margin-bottom:2px}
+.g-main b{display:block;font-size:12px;font-weight:650;line-height:1.4;letter-spacing:-.01em}
+.g-main small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;color:var(--ink-3);line-height:1.5;margin-top:3px}
+
+.qa-card{margin-top:10px;border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden}
+.qa-head{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line-2)}
+.qa-head__main{flex:1;min-width:0}
+.qa-head b{display:block;font-size:12.5px;font-weight:650}
+.qa-head small{display:block;font-family:var(--mono);font-size:8px;color:var(--ink-3);margin-top:2px}
+.qa-item{display:block;width:100%;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-2);cursor:pointer;transition:background .16s}
+.qa-item:hover{background:var(--surface-2)}
+.qa-q{display:flex;gap:6px;font-size:12px;font-weight:650;line-height:1.5;color:var(--ink)}
+.qa-q > span:last-child{min-width:0}
+.qb{flex:none;font-family:var(--mono);font-size:7.5px;font-weight:700;color:#F5FAFF;background:var(--brand);border-radius:3px;padding:1px 4px;line-height:1.7;margin-top:1px}
+.qb--a{color:var(--brand);background:#EFF6FF;border:1px solid #DCE9F7;padding:0 4px}
+.qa-a{display:flex;gap:6px;margin-top:5px;font-size:11px;line-height:1.6;color:var(--ink-2)}
+.qa-a p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0;min-width:0}
+.qa-wait{display:block;margin-top:5px;font-size:10.5px;color:#A5884F}
+.qa-meta{display:flex;align-items:center;gap:6px;margin-top:6px;font-family:var(--mono);font-size:7.5px;color:var(--ink-3);flex-wrap:wrap}
+.qa-more{display:block;width:100%;padding:10px;font-size:11px;color:var(--brand-3);font-weight:650;text-align:center;background:var(--surface-2)}
+.qa-more:hover{background:#EAF3FF}
+.qa-full{padding:11px 0;border-bottom:1px solid var(--line-2)}
+.qa-full:last-of-type{border-bottom:0}
+.qa-full.is-focus{background:#F7FBFF;border-radius:6px;padding-left:8px;padding-right:8px}
+.qa-full__q{display:flex;gap:7px;font-size:12.5px;line-height:1.55;font-weight:650}
+.qa-full__meta{font-family:var(--mono);font-size:8px;color:var(--ink-3);margin:5px 0 0 28px}
+.qa-full__a{display:flex;gap:7px;margin-top:7px;background:var(--surface-2);border-radius:6px;padding:9px 10px;font-size:11.5px;line-height:1.7;color:var(--ink-2)}
+.qa-full__a p{margin:0;min-width:0}
+.qa-full__a small{display:block;font-family:var(--mono);font-size:7.5px;color:var(--ink-3);margin-top:5px}
+.qa-full__wait{display:flex;align-items:center;gap:8px;margin-top:7px;font-size:11px;color:#A5884F}
+.qa-full__wait .btn{flex:none;margin-left:auto}
+.qa-quote{display:flex;gap:7px;background:var(--surface-2);border-radius:7px;padding:10px 11px;font-size:12px;line-height:1.6;color:var(--ink-2)}
+
+/* 新生指南详情 */
+.guide-steps{display:grid;gap:10px}
+.guide-step{display:flex;gap:9px;align-items:flex-start}
+.guide-step .gs-n{flex:none;width:22px;height:22px;border-radius:50%;background:#EFF6FF;border:1px solid #DCE9F7;color:var(--brand);font-family:var(--mono);font-size:8px;display:grid;place-items:center;margin-top:1px}
+.guide-step b{display:block;font-size:12.5px;font-weight:650}
+.guide-step p{font-size:11.5px;line-height:1.7;color:var(--ink-2);margin-top:2px}
+.guide-tip{position:relative;padding:8px 10px 8px 22px;font-size:11.5px;line-height:1.6;color:var(--ink-2);background:#FBFDFF;border:1px solid var(--line-2);border-radius:6px;margin-bottom:6px}
+.guide-tip::before{content:"";position:absolute;left:9px;top:14px;width:5px;height:5px;border-radius:50%;background:var(--brand-3)}
+@media (min-width:760px){
+  .g-grid{grid-template-columns:repeat(4,1fr)}
+  .g-card{padding:12px}
+  .g-main b{font-size:12.5px}
+}
 </style>
 </head>
 <body>
@@ -1466,7 +1520,8 @@ const ART_BG = {
   camera: '#F3E6DB', plant: '#E2ECF7', food: '#F9EAD1', lamp: '#F3EEDC',
   keyboard: '#E7E9F0', clothes: '#F1E7E9', guitar: '#F8E8D6', ball: '#F8E2D2',
   key: '#EDEBDC', heart: '#F9E5E2', cat: '#F2EADC', cup: '#F2E9DB', sun: '#FAEFD6',
-  parcel: '#F4EAD9', store: '#E7EEF7', printer: '#E7E9F0', salon: '#F1E7E9'
+  parcel: '#F4EAD9', store: '#E7EEF7', printer: '#E7E9F0', salon: '#F1E7E9',
+  washer: '#E7EEF7', gear: '#EFE7D3'
 };
 const ART = {
   book: `<rect x="24" y="31" width="72" height="59" rx="7" fill="#FFFDF6" stroke="#17385E" stroke-width="3"/>
@@ -1550,7 +1605,19 @@ const ART = {
   salon: `<circle cx="37" cy="45" r="10" fill="none" stroke="#17385E" stroke-width="3"/>
     <circle cx="37" cy="77" r="10" fill="none" stroke="#17385E" stroke-width="3"/>
     <path d="M45 51 87 85M45 71 87 37" stroke="#17385E" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="65" cy="61" r="4" fill="#E9A13B" stroke="#17385E" stroke-width="2.4"/>`
+    <circle cx="65" cy="61" r="4" fill="#E9A13B" stroke="#17385E" stroke-width="2.4"/>`,
+  washer: `<rect x="30" y="24" width="60" height="74" rx="7" fill="#FFFDF6" stroke="#17385E" stroke-width="3"/>
+    <path d="M30 50h60" stroke="#17385E" stroke-width="3"/>
+    <circle cx="60" cy="68" r="18" fill="#7DD3FC" stroke="#17385E" stroke-width="3"/>
+    <circle cx="60" cy="68" r="8" fill="#FFFDF6" stroke="#17385E" stroke-width="2.6"/>
+    <rect x="39" y="34" width="11" height="6" rx="3" fill="#17385E"/>
+    <rect x="54" y="34" width="11" height="6" rx="3" fill="#17385E" opacity=".32"/>
+    <circle cx="84" cy="37" r="3" fill="#E9A13B"/>`,
+  gear: `<circle cx="60" cy="60" r="18" fill="none" stroke="#17385E" stroke-width="4"/>
+    <circle cx="60" cy="60" r="6.5" fill="#7DD3FC" stroke="#17385E" stroke-width="3"/>
+    <g stroke="#17385E" stroke-width="7" stroke-linecap="round">
+      <path d="M60 34v-8M60 94v-8M34 60h-8M94 60h-8M42 42l-6-6M84 84l6 6M84 42l6-6M42 84l-6 6"/>
+    </g>`
 };
 function art(key, w = '100%') {
   const k = ART[key] ? key : 'book';
@@ -1709,6 +1776,63 @@ function seedDB() {
           { title: '补货：暖宝宝和热水袋', text: '降温了，货架二层，数量有限。', time: '昨天', art: 'store' }
         ] }
     ],
+    guides: [
+      { id: 'g01', cat: '报到', title: '开学报到指南', art: 'key', reads: 1280,
+        summary: '路线、材料、领钥匙，一次走完',
+        intro: '报到日人最多，按这个顺序走基本不用来回跑：先到学院报到点核验材料，再去宿舍楼领钥匙，最后回学院交回执。',
+        steps: [
+          { t: '到校前', d: '录取通知书、身份证、党团组织关系材料放进同一个文件袋；提前在迎新系统填好到校时间与车站。' },
+          { t: '报到点', d: '图书馆一楼按学院分区：核验材料 → 领校园卡 → 拿宿舍分配单，全程约 15 分钟。' },
+          { t: '宿舍楼', d: '凭分配单到楼下宿管处领钥匙和空调遥控器，登记入住时间，顺手存下宿管电话。' },
+          { t: '回执与缴费', d: '回学院交回执；学费、住宿费在「校园卡」小程序里缴，别在陌生链接付款。' }
+        ],
+        tips: ['家长的车可以进校，东门登记后即停即走', '行李多可以先寄到菜鸟驿站，报到当天再取', '穿红马甲的迎新志愿者可以直接问路'] },
+      { id: 'g02', cat: '生活', title: '订水到宿舍', art: 'cup', reads: 960,
+        summary: '扫码下单，桶装水直接送到门口',
+        intro: '宿舍喝水有两种方式：楼层直饮水机扫码，或者订桶装水送到宿舍。前者便宜，后者适合宿舍一起用。',
+        steps: [
+          { t: '楼层直饮水', d: '每层水房有直饮水机，扫码 0.3 元/升，冷热都有，杯子自带。' },
+          { t: '订桶装水', d: '关注「校园订水」小程序，绑定楼栋与房间号，18:00 前的订单当天送。' },
+          { t: '押金与空桶', d: '首次订水付 30 元桶押金，退宿时拿空桶退押金，单据要留好。' }
+        ],
+        tips: ['开学第一周送水排队，建议一次订两桶', '空桶别扔，一个桶 30 元', '18:00 之后下单顺延到次日上午'] },
+      { id: 'g03', cat: '生活', title: '洗衣机安装与使用', art: 'washer', reads: 742,
+        summary: '合买或公用，登记流程与功率限制',
+        intro: '学校不统一配洗衣机。宿舍可以四个人合买一台放阳台，也可以直接用楼层公共洗衣机。',
+        steps: [
+          { t: '公共洗衣机', d: '每层洗衣房 2–3 台，扫码 3 元一次，标准洗 35 分钟；晚 9 点后是高峰期。' },
+          { t: '自行购买', d: '建议 5–6 kg 波轮，占地小；到货后先到宿管处登记型号与功率。' },
+          { t: '安装与用电', d: '功率不超过 500W，必须用带接地的独立插座，禁止私拉插线板。' },
+          { t: '排水', d: '阳台地漏保持通畅，排水管固定好，避免漏水到楼下。' }
+        ],
+        tips: ['四人合买写个简单的分摊说明，毕业时好处理', '毕业季二手洗衣机很多，可以捡漏', '退宿前把机器处理掉，别留在宿舍'] },
+      { id: 'g04', cat: '报修', title: '宿舍报修指南', art: 'gear', reads: 1105,
+        summary: '水电、门锁、网络，报修入口与时效',
+        intro: '宿舍水电、门锁、网络出问题都能报修，不用自己找师傅。分清入口能省很多时间。',
+        steps: [
+          { t: '报修入口', d: '「校园服务 → 宿舍报修」，或直接扫楼道里的报修二维码。' },
+          { t: '填写信息', d: '写清楼栋房间号、故障类型、方便上门的时间，最好附一张照片。' },
+          { t: '响应时效', d: '水电急修 2 小时内上门，门锁与家具 24 小时内，网络故障由运营商次日处理。' },
+          { t: '进度查询', d: '提交后可在「我的报修」查看进度，完成后记得确认。' }
+        ],
+        tips: ['跳闸先看自己房间的空气开关，再报修', '门锁被反锁可以找宿管借备用钥匙', '网络问题先重启光猫，多半能解决'] }
+    ],
+    questions: [
+      { id: 'q05', q: '宿舍可以用吹风机吗？功率有限制吗？', tag: '住宿', asker: '新生小鱼', time: '1 小时前', likes: 6,
+        a: '', answerer: '' },
+      { id: 'q01', q: '宿舍床帘可以自己装吗？查寝会不会扣分', tag: '住宿', asker: '新生小林', time: '2 天前', likes: 42,
+        a: '可以装，但只能用免打孔的伸缩杆，退宿时要能恢复原样。查寝主要看卫生和用电安全，床帘本身不影响。',
+        answerer: '阿音（学姐）' },
+      { id: 'q02', q: '洗衣机是学校统一装还是自己买？', tag: '住宿', asker: '新生小周', time: '3 天前', likes: 67,
+        a: '学校不统一配。可以宿舍四个人合买一台放阳台，也可以直接用楼层公共洗衣机（扫码 3 元一次）。自己装要先在宿管处登记，功率不超过 500W。',
+        answerer: '老陈（学长）' },
+      { id: 'q03', q: '订水多久能送到？晚上下单有人送吗？', tag: '生活', asker: '新生阿 May', time: '4 天前', likes: 31,
+        a: '18:00 前的单当天送，之后顺延到第二天上午。开学第一周会排队，建议一次订两桶。',
+        answerer: '宿管中心' },
+      { id: 'q04', q: '报到当天家长的车能开进学校吗？', tag: '报到', asker: '新生家长', time: '5 天前', likes: 88,
+        a: '可以，从东门进，出示录取通知书登记就行；宿舍楼下即停即走，不能过夜。',
+        answerer: '迎新志愿者' }
+    ],
     likes: [], collects: [], wants: []
   };
 }
@@ -1717,6 +1841,8 @@ function migrateDB(d) {
   const seed = seedDB();
   if (!Array.isArray(d.errands)) d.errands = seed.errands;
   if (!Array.isArray(d.shops)) d.shops = seed.shops;
+  if (!Array.isArray(d.guides)) d.guides = seed.guides;
+  if (!Array.isArray(d.questions)) d.questions = seed.questions;
   if (!Array.isArray(d.likes)) d.likes = [];
   if (!Array.isArray(d.collects)) d.collects = [];
   if (!Array.isArray(d.wants)) d.wants = [];
@@ -1753,6 +1879,7 @@ const POINT_RULES = [
   { k: 'post', label: '发布校园墙动态', pts: 5, note: '每日最多 3 次', i: 'heart' },
   { k: 'deal', label: '完成一笔交易', pts: 20, note: '标记售出或确认完成', i: 'check' },
   { k: 'run', label: '完成一次跑腿', pts: 15, note: '接单并送达后到账', i: 'box' },
+  { k: 'answer', label: '解答新生提问', pts: 5, note: '回答发布后立即到账', i: 'heart' },
   { k: 'invite', label: '邀请新同学', pts: 30, note: '对方注册成功后到账', i: 'send' }
 ];
 const BOOST_TIERS = [
@@ -3005,8 +3132,10 @@ function servicesHTML() {
     </button>
   </div>
 
+  ${freshmanSectionHTML()}
+
   <section class="section">
-    <div class="section__head"><h2><i class="idx">05</i>校园工具箱<span>TOOLKIT</span></h2></div>
+    <div class="section__head"><h2><i class="idx">06</i>校园工具箱<span>TOOLKIT</span></h2></div>
     <div class="tool-grid">
       <button class="tool-card" data-action="tool" data-tool="room">
         <span class="quick-ico q-green">${icon('door', 18)}</span>
@@ -3028,7 +3157,7 @@ function servicesHTML() {
   </section>
 
   <section class="section">
-    <div class="section__head"><h2><i class="idx">06</i>校园公告<span>NOTICE</span></h2><span class="section__more">学生事务中心</span></div>
+    <div class="section__head"><h2><i class="idx">07</i>校园公告<span>NOTICE</span></h2><span class="section__more">学生事务中心</span></div>
     <div class="notice-card">
       <div class="notice-row"><span class="n-date">10/28</span><p>图书馆四楼自习区延长开放至 23:00</p><span class="tag">通知</span></div>
       <div class="notice-row"><span class="n-date">10/30</span><p>校园卡系统维护，22:00–24:00 暂停充值</p><span class="tag">维护</span></div>
@@ -3037,6 +3166,193 @@ function servicesHTML() {
   </section>
 
   <div class="foot-note">所有交易与信息均为演示数据，请注意线下安全</div>`;
+}
+
+/* ================= 10.5 新生必看：指南 + 新生问答 ================= */
+function freshmanSectionHTML() {
+  const qs = db.questions;
+  const answered = qs.filter((q) => q.a).length;
+  const preview = qs.slice(0, 3);
+  return `
+  <section class="section">
+    <div class="section__head">
+      <h2><i class="idx">05</i>新生必看<span>FRESHMAN GUIDE</span></h2>
+      <button class="section__more" data-action="open-qa">新生问答 ${icon('chev', 12)}</button>
+    </div>
+    <div class="g-grid card-flow">
+      ${db.guides.map((g, i) => `<button class="g-card" data-action="open-guide" data-id="${g.id}" style="--i:${Math.min(i, 8)}">
+        <span class="g-ico" style="background:${ART_BG[g.art] || '#EEF3F9'}">${art(g.art, '34px')}</span>
+        <span class="g-main">
+          <span class="g-tag">${esc(g.cat)} · 阅读 ${num(g.reads)}</span>
+          <b>${esc(g.title)}</b>
+          <small>${esc(g.summary)}</small>
+        </span>
+      </button>`).join('')}
+    </div>
+    <div class="qa-card">
+      <div class="qa-head">
+        <div class="qa-head__main">
+          <b>新生问答</b>
+          <small>${qs.length} 个问题 · ${answered} 个已解答</small>
+        </div>
+        <button class="btn btn--primary btn--sm" data-action="ask-question">${icon('plus', 12)} 我要提问</button>
+      </div>
+      ${preview.map((q) => `<div class="qa-item" role="button" tabindex="0" data-action="open-qa" data-id="${q.id}">
+        <div class="qa-q"><span class="qb">Q</span><span>${esc(q.q)}</span></div>
+        ${q.a
+          ? `<div class="qa-a"><span class="qb qb--a">A</span><p>${esc(q.a)}</p></div>`
+          : '<div class="qa-wait">还没有人解答 · 点开看看，或者你来当第一个</div>'}
+        <div class="qa-meta"><span>${esc(q.asker)}</span><span>·</span><span>${esc(q.tag)}</span><span>·</span><span>${q.likes} 人同问</span>${q.a ? `<span>·</span><span>${esc(q.answerer)} 解答</span>` : ''}</div>
+      </div>`).join('')}
+      <button class="qa-more" data-action="open-qa">查看全部 ${qs.length} 个问题</button>
+    </div>
+  </section>`;
+}
+
+function guideDetailHTML(g) {
+  return `
+  <div class="detail__top">
+    <button class="detail__back" data-action="close-detail" aria-label="返回">${icon('back', 18)}</button>
+    <button class="detail__share" data-action="share-guide" aria-label="分享">${icon('send', 16)}</button>
+    <span class="detail__count">新生必看 · ${esc(g.cat)}</span>
+  </div>
+  <div class="detail__scroll">
+    <div class="detail__cover" style="background:${ART_BG[g.art] || '#EEF3F9'}">${art(g.art)}</div>
+    <div class="detail__body">
+      <div class="detail__topic">新生必看 · ${esc(g.cat)} · 阅读 ${num(g.reads)}</div>
+      <h1 class="detail__title">${esc(g.title)}</h1>
+      <p class="detail__text">${esc(g.intro)}</p>
+      <div class="detail__h">STEPS · 办理步骤</div>
+      <div class="guide-steps">
+        ${g.steps.map((s, i) => `<div class="guide-step">
+          <span class="gs-n">${String(i + 1).padStart(2, '0')}</span>
+          <div><b>${esc(s.t)}</b><p>${esc(s.d)}</p></div>
+        </div>`).join('')}
+      </div>
+      <div class="detail__h">TIPS · 学长学姐提醒</div>
+      <div>${g.tips.map((t) => `<div class="guide-tip">${esc(t)}</div>`).join('')}</div>
+      <div style="height:8px"></div>
+    </div>
+  </div>
+  <div class="detail__bar detail__bar--actions">
+    <button class="btn btn--ghost" data-action="close-detail">关闭</button>
+    <button class="btn btn--primary" data-action="ask-question">还有问题？去提问</button>
+  </div>`;
+}
+
+function bindGuideDetail(el, g) {
+  el.querySelector('[data-action="share-guide"]')?.addEventListener('click', async () => {
+    const text = `${g.title} · 新生必看 · 来自智慧校园4.0`;
+    try {
+      if (navigator.share) { await navigator.share({ title: g.title, text }); return; }
+      await navigator.clipboard.writeText(`${text}\n${location.href}`);
+      toast('链接已复制');
+    } catch (err) { toast('分享已取消'); }
+  });
+  bindPullClose(el);
+}
+
+function openGuide(id, origin) {
+  if (detailView) return;
+  const g = db.guides.find((x) => x.id === id);
+  if (!g) return;
+  const originCover = origin && origin.querySelector ? origin.querySelector('.g-ico') : null;
+  openDetailLayer({
+    kind: 'guide',
+    id: g.id,
+    html: guideDetailHTML(g),
+    bg: ART_BG[g.art] || '#EEF3F9',
+    heroHTML: art(g.art),
+    from: originCover ? originCover.getBoundingClientRect() : null,
+    bind: (el) => bindGuideDetail(el, g)
+  });
+}
+
+function openQA(focusId) {
+  const qs = db.questions;
+  const body = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="flex:1;font-size:11.5px;color:var(--ink-3)">${qs.length} 个问题 · ${qs.filter((q) => q.a).length} 个已解答</span>
+      <button class="btn btn--primary btn--sm" data-action="ask-question">${icon('plus', 12)} 我要提问</button>
+    </div>
+    ${qs.map((q) => `<div class="qa-full${q.id === focusId ? ' is-focus' : ''}">
+      <div class="qa-full__q"><span class="qb">Q</span><span>${esc(q.q)}</span></div>
+      <div class="qa-full__meta">${esc(q.asker)} · ${esc(q.tag)} · ${esc(q.time)} · ${q.likes} 人同问</div>
+      ${q.a
+        ? `<div class="qa-full__a"><span class="qb qb--a">A</span><div><p>${esc(q.a)}</p><small>${esc(q.answerer)} · 解答</small></div></div>`
+        : `<div class="qa-full__wait"><span>还没有学长学姐解答</span><button class="btn btn--ghost btn--sm" data-answer="${q.id}">我来解答</button></div>`}
+    </div>`).join('')}
+    <p class="sheet-note">问答由同学互助维护，涉及缴费、证件的信息请以学校官方通知为准。</p>`;
+  const sheet = openSheet({
+    title: '新生问答',
+    body,
+    foot: `<button class="btn btn--primary" data-action="close-sheet">关闭</button>`
+  });
+  sheet.querySelector('.sheet__body').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-answer]');
+    if (!b) return;
+    openAnswerQuestion(b.dataset.answer);
+  });
+}
+
+function openAskQuestion() {
+  const body = `
+    <form class="form-grid" novalidate>
+      <label class="field"><span>你的问题 *</span>
+        <textarea id="qText" maxlength="120" style="min-height:96px" placeholder="例如：宿舍可以用吹风机吗？功率有限制吗？"></textarea>
+      </label>
+      <label class="field"><span>问题分类</span>
+        <select id="qTag">${['住宿', '报到', '生活', '学习', '其他'].map((t) => `<option>${t}</option>`).join('')}</select>
+      </label>
+      <p class="hint">提问会出现在「新生问答」里，学长学姐看到就会来解答；被解答后你会收到提醒。</p>
+    </form>`;
+  const sheet = openSheet({
+    title: '我要提问',
+    body,
+    foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button>
+           <button class="btn btn--primary" id="qSubmit">发布问题</button>`
+  });
+  sheet.querySelector('#qSubmit').addEventListener('click', () => {
+    const q = sheet.querySelector('#qText').value.trim();
+    if (!q) { toast('先写一下你的问题吧'); return; }
+    db.questions.unshift({
+      id: uid('q'), q,
+      tag: sheet.querySelector('#qTag').value,
+      asker: me().nick, time: '刚刚', likes: 0, a: '', answerer: ''
+    });
+    saveDB();
+    closeSheet();
+    if (state.tab === 'services' && !state.page) renderPage();
+    toast('问题已发布，等学长学姐来解答');
+  });
+}
+
+function openAnswerQuestion(id) {
+  const q = db.questions.find((x) => x.id === id);
+  if (!q) return;
+  const body = `
+    <div class="qa-quote"><span class="qb">Q</span><span>${esc(q.q)}</span></div>
+    <label class="field" style="margin-top:12px"><span>你的解答 *</span>
+      <textarea id="aText" maxlength="200" style="min-height:110px" placeholder="尽量写清条件、地点和时效，新生更容易看懂"></textarea>
+    </label>
+    <p class="hint">解答发布后会显示在这条问题下，并获得 5 积分。</p>`;
+  const sheet = openSheet({
+    title: '解答新生提问',
+    body,
+    foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button>
+           <button class="btn btn--primary" id="aSubmit">发布解答</button>`
+  });
+  sheet.querySelector('#aSubmit').addEventListener('click', () => {
+    const text = sheet.querySelector('#aText').value.trim();
+    if (!text) { toast('写两句再发布吧'); return; }
+    q.a = text;
+    q.answerer = me().nick;
+    addPoints(5, '解答新生提问', true);
+    saveDB();
+    closeSheet();
+    if (state.tab === 'services' && !state.page) renderPage();
+    toast('解答已发布，感谢帮忙 · 积分 +5');
+  });
 }
 
 /* ================= 11. 跳蚤市场 ================= */
@@ -4175,9 +4491,9 @@ function closeDetail() {
   const cover = el.querySelector('.detail__cover');
   if (cover) cover.style.visibility = 'visible';
 
-  const ACTION_OF = { post: 'open-post', shop: 'open-shop', item: 'open-item', errand: 'open-errand' };
+  const ACTION_OF = { post: 'open-post', shop: 'open-shop', item: 'open-item', errand: 'open-errand', guide: 'open-guide' };
   const card = document.querySelector(`[data-action="${ACTION_OF[dv.kind] || 'open-post'}"][data-id="${dv.id}"]`);
-  const targetEl = card ? card.querySelector('.m-cover, .w-cover, .cover') : null;
+  const targetEl = card ? card.querySelector('.m-cover, .w-cover, .cover, .g-ico') : null;
   const to = targetEl ? targetEl.getBoundingClientRect() : null;
   const from = cover ? cover.getBoundingClientRect() : null;
   const scrolled = el.scrollTop > 24;
@@ -4888,6 +5204,9 @@ document.addEventListener('click', (e) => {
       state.tab = 'services'; state.page = 'shops'; renderPage(true); break;
     case 'open-errand': openErrand(el.dataset.id, el); break;
     case 'open-shop': openShop(el.dataset.id, el); break;
+    case 'open-guide': openGuide(el.dataset.id, el); break;
+    case 'open-qa': openQA(el.dataset.id || ''); break;
+    case 'ask-question': openAskQuestion(); break;
     case 'publish-errand': openPublishErrand(); break;
     case 'publish-shop': openShopForm(); break;
     case 'open-points': openPoints(); break;

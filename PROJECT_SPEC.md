@@ -93,12 +93,15 @@
 | 校园墙 | `page=wall` | `wallHTML()` + `refreshWall()` |
 | 附近好店 | `page=shops` | `shopsHTML()` + `refreshShops()` |
 | 个人中心 | `tab=profile` | `profileHTML()` |
+| 新生必看（校园服务页内） | — | `freshmanSectionHTML()` → `openGuide()` / `openQA()` |
+
+> 新生必看的指南卡属于「卡片」，点击走全屏详情层（`kind: 'guide'`）；新生问答属于列表 + 表单，用弹层承载，不参与卡片入场动画。
 
 浮层与工具：`openSheet()` / `closeSheet()`、`openCourseForm()`、`openImportSheet()`、`openTool('room|lost|phone|calendar')`、`openCalendar()`、`openPoints()`、`openBoostHub()`、`openBoostSheet()`。
 
 ## 五、积分与推流
 
-- **获取**：新人注册 +100；发布闲置 / 跑腿 +10；发帖 +5；完成交易 +20；完成跑腿 +15；邀请新同学 +30。
+- **获取**：新人注册 +100；发布闲置 / 跑腿 +10；发帖 +5；完成交易 +20；完成跑腿 +15；解答新生提问 +5；邀请新同学 +30。
 - **消耗**：推流档位 `30 积分 / 6 小时`、`80 积分 / 24 小时`、`200 积分 / 3 天`。
 - **排序**：列表先按「推流中」置顶，再按原有排序（最新 / 价格 / 悬赏 / 热门）；已完成的跑腿沉底。
 - **字段**：`user.points`、`user.pointLog[]`、`record.boostUntil`（时间戳，过期自动失效）、`record.photos[]`。
@@ -135,3 +138,4 @@
 | 2026-10-29 | 校历改为月历网格；新增校园跑腿、附近好店；接入积分推流与照片导入；四类卡片统一 `card-flow` 出场动画并写入本规范 |
 | 2026-10-29 | 修正跳蚤市场 / 校园跑腿的详情转场：由底部弹层改为与校园墙一致的全屏详情 + 封面飞入，抽 `openDetailLayer()` 统一四类卡片 |
 | 2026-10-29 | 首页课表下方新增校历月历卡（`homeCalendarHTML()`），与课表卡共用报头语言，点日期直达完整校历；修复「回到本周」不生效 |
+| 2026-10-29 | 校园服务新增「新生必看」：4 篇指南（全屏详情）+ 新生问答（提问 / 学长学姐解答，解答 +5 积分） |

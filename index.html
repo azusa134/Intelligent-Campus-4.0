@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0B1F3A" />
-<meta name="description" content="智慧校园4.0 —— 课表、跳蚤市场、校园墙与 AI 助手，一站式智慧校园生活服务。" />
+<meta name="description" content="智慧校园4.0 —— 课表、跳蚤市场、校园跑腿、附近好店、校园墙与 AI 助手，一站式智慧校园生活服务。" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23123B70'/%3E%3Cpath d='M8 12.5 16 8l8 4.5v8L16 25l-8-4.5z' fill='none' stroke='%237DD3FC' stroke-width='2'/%3E%3Cpath d='m12 14.5 4 2.3 4-2.3M16 17v5' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
 <title>智慧校园4.0 · 连接校园，让智慧发生</title>
 <style>
@@ -432,22 +432,13 @@ svg{display:block}
 .m-foot .m-want{flex:none;display:flex;align-items:center;gap:2px}
 
 /* item detail */
-.item-cover{border-radius:18px;aspect-ratio:1.25;display:grid;place-items:center;overflow:hidden;margin-bottom:16px}
-.item-cover svg{width:68%;height:68%}
 .price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .price-row b{font-size:30px;font-weight:800;color:#C4472C;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .price-row b small{font-size:15px;font-weight:700;margin-right:2px}
 .price-row del{font-size:12px;color:#B3BAB2}
-.item-title{font-size:18px;font-weight:740;line-height:1.45;margin:8px 0 12px;letter-spacing:-.01em}
 .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .tag{font-size:10.5px;padding:4px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line-2);font-weight:600}
-.desc-box{background:var(--surface-2);border-radius:14px;padding:13px 14px;font-size:13px;line-height:1.75;color:var(--ink-2);white-space:pre-wrap;margin-bottom:16px}
-.seller-box{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;margin-bottom:16px}
-.seller-box .avatar{width:40px;height:40px;font-size:14px}
-.seller-box .sb-txt{flex:1;min-width:0}
-.seller-box b{display:block;font-size:13px;font-weight:650}
-.seller-box small{display:block;font-size:11px;color:var(--ink-3);margin-top:2px}
-.seller-box .sb-tag{font-size:10px;font-weight:700;color:var(--brand);background:var(--lime-soft);padding:4px 8px;border-radius:999px;flex:none}
+.sb-tag{font-size:10px;font-weight:700;color:var(--brand);background:var(--lime-soft);padding:4px 8px;border-radius:999px;flex:none;white-space:nowrap}
 
 /* ============ 6. Wall ============ */
 .wall-wrap{columns:2;column-gap:12px}
@@ -1037,6 +1028,184 @@ body.detail-lock .toast-root{bottom:auto;top:calc(14px + env(safe-area-inset-top
   .detail__body > *{opacity:1;transform:none}
   .hero-fly{display:none}
 }
+
+/* ============ 15. 卡片动画 / 跑腿 / 好店 / 积分推流 / 校历 ============ */
+
+/* 15.1 卡片统一出场动画：校园墙、跳蚤市场、校园跑腿、附近好店共用同一套参数 */
+.card-flow > *{animation:cardIn .52s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 26ms)}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* 15.2 照片封面 / 推流标识 */
+.photo{display:block;width:100%;height:100%;object-fit:cover}
+.m-cover .photo{position:absolute;inset:0;z-index:0}
+.m-cover .cond{z-index:2}
+.src-thumb{width:44px;height:44px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;flex:none;overflow:hidden}
+.boost-tag{position:absolute;right:7px;top:7px;z-index:3;display:inline-flex;align-items:center;gap:2px;font-family:var(--mono);font-size:7.5px;letter-spacing:.04em;color:#8A5A12;background:rgba(255,246,226,.95);border:1px solid #F0DCB2;padding:2px 5px;border-radius:3px;white-space:nowrap}
+.boost-tag--inline{position:static;right:auto;top:auto;display:inline-flex;margin-left:6px;vertical-align:1px}
+.e-state{position:absolute;left:7px;bottom:7px;z-index:2;font-family:var(--mono);font-size:7px;letter-spacing:.04em;color:#fff;background:rgba(8,22,40,.56);padding:2px 5px;border-radius:3px;backdrop-filter:blur(4px)}
+
+.item-thumbs{display:flex;gap:6px;margin:-8px 0 14px;flex-wrap:wrap}
+.item-thumbs button{width:52px;height:52px;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#fff;padding:0}
+.item-thumbs button.is-on{border-color:var(--brand-3);box-shadow:0 0 0 2px rgba(43,110,174,.12)}
+.item-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+/* 15.3 照片导入 */
+.photo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb .rm{position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:rgba(8,22,40,.66);color:#fff;display:grid;place-items:center}
+.photo-add{aspect-ratio:1;border-radius:8px;border:1px dashed #C3D2E2;background:var(--surface-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--ink-3);font-size:9px;letter-spacing:.02em;cursor:pointer;transition:border-color .16s,color .16s,background .16s}
+.photo-add:hover{border-color:var(--brand-3);color:var(--brand-3);background:#F2F8FF}
+.photo-add span{font-family:var(--mono);font-size:8px}
+
+/* 15.4 附近好店卡片 */
+.s-meta{margin-top:5px;display:grid;gap:3px;font-family:var(--mono);font-size:8.5px;color:var(--ink-3);line-height:1.55}
+.s-meta span{display:flex;align-items:center;gap:3px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-meta svg{flex:none;opacity:.7}
+.s-promo{display:block;margin-top:7px;font-size:9px;font-weight:650;color:#B4471F;background:#FDEFE6;border:1px solid #F7DDCC;padding:3px 6px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-rate{position:absolute;right:7px;top:7px;z-index:2;font-family:var(--mono);font-size:7.5px;color:#8A5A12;background:rgba(255,255,255,.94);padding:2px 5px;border-radius:3px}
+
+/* 15.5 积分推流 */
+.pts-pill{display:inline-flex;align-items:center;gap:4px;height:34px;padding:0 10px;border-radius:6px;border:1px solid var(--line);background:#fff;font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;color:#8A5A12;flex:none}
+.pts-pill b{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--brand)}
+.pts-pill:hover{border-color:#EBD5AC;background:#FFFCF5}
+.boost-bar{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid #EBDFC6;background:linear-gradient(100deg,#FFF8EA,#FFFDF9);border-radius:8px;margin:0 2px 11px}
+.boost-bar .bb-ico{width:27px;height:27px;border-radius:6px;background:#FBE6BE;color:#8A5A12;display:grid;place-items:center;flex:none}
+.boost-bar .bb-main{flex:1;min-width:0}
+.boost-bar b{display:block;font-size:11px;font-weight:700;color:#6B4A14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.boost-bar small{display:block;font-family:var(--mono);font-size:7.5px;color:#A5884F;margin-top:2px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.boost-bar .btn{flex:none}
+.pts-hero{position:relative;overflow:hidden;border-radius:8px;background:#0B2545;color:#EAF3FC;padding:15px 16px}
+.pts-hero::after{content:"";position:absolute;right:-40px;top:-70px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(125,211,252,.26),transparent 66%);pointer-events:none}
+.pts-hero .ph-k{font-family:var(--mono);font-size:7.5px;letter-spacing:.18em;color:#8FB6D8}
+.pts-hero .ph-n{font-family:var(--serif);font-size:36px;line-height:1;font-weight:700;margin-top:7px;color:#fff;letter-spacing:-.02em}
+.pts-hero .ph-n small{font-family:var(--mono);font-size:9px;margin-left:5px;color:#9EC4E3;font-weight:400}
+.pts-hero .ph-t{font-size:10.5px;color:#9EC4E3;margin-top:7px;line-height:1.6;position:relative;z-index:1}
+.tier-list{display:grid;gap:7px}
+.tier{display:flex;align-items:center;gap:10px;padding:10px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;text-align:left;width:100%}
+.tier.is-active{border-color:var(--brand-3);background:#F4FAFF;box-shadow:0 0 0 2px rgba(43,110,174,.09)}
+.tier .t-pts{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--brand);flex:none;min-width:42px}
+.tier .t-main{flex:1;min-width:0}
+.tier b{display:block;font-size:12px;font-weight:650}
+.tier small{display:block;font-family:var(--mono);font-size:8px;color:var(--ink-3);margin-top:2px}
+.tier .t-ck{width:17px;height:17px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:transparent;flex:none}
+.tier.is-active .t-ck{background:var(--brand-3);border-color:var(--brand-3);color:#fff}
+.rule-row{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--line-2)}
+.rule-row:last-child{border-bottom:0}
+.rule-row .r-ico{width:27px;height:27px;border-radius:6px;background:#F1F6FC;color:#2B6EAE;display:grid;place-items:center;flex:none}
+.rule-row .r-main{flex:1;min-width:0}
+.rule-row b{display:block;font-size:11.5px;font-weight:650}
+.rule-row small{display:block;font-family:var(--mono);font-size:7.8px;color:var(--ink-3);margin-top:2px}
+.rule-row .r-pts{font-family:var(--serif);font-size:13px;font-weight:700;color:#B4471F;flex:none}
+.log-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line-2);font-size:11px;color:var(--ink-2)}
+.log-row:last-child{border-bottom:0}
+.log-row .l-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.log-row .l-d{font-family:var(--mono);font-size:10px;flex:none;color:var(--ink-3)}
+.log-row .l-d.up{color:#1F7A4D}
+.log-row .l-d.down{color:#B4471F}
+
+/* 15.6 附近好店详情 */
+.shop-rows{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:14px 0}
+.shop-row{display:flex;align-items:center;gap:9px;padding:10px 11px;border-bottom:1px solid var(--line-2);font-size:12px;color:var(--ink-2)}
+.shop-row:last-child{border-bottom:0}
+.shop-row .sr-ico{width:25px;height:25px;border-radius:6px;background:#F1F6FC;color:#2B6EAE;display:grid;place-items:center;flex:none}
+.shop-row b{font-weight:650;color:var(--ink);margin-right:auto}
+.shop-row .sr-val{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.detail__h{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;color:var(--ink-3);margin:18px 0 8px}
+.promo-item{border:1px dashed #EBD3BF;background:#FFFAF4;border-radius:7px;padding:10px 11px;margin-bottom:7px}
+.promo-item b{display:block;font-size:12px;color:#8A4517}
+.promo-item p{font-size:11px;color:#9A6B44;margin-top:3px;line-height:1.6}
+.promo-item .until{display:block;font-family:var(--mono);font-size:7.5px;color:#B48C63;margin-top:5px}
+.feed-item{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid var(--line-2)}
+.feed-item:last-child{border-bottom:0}
+.feed-item .f-ico{width:44px;height:44px;border-radius:7px;display:grid;place-items:center;flex:none;overflow:hidden}
+.feed-item b{display:block;font-size:12px}
+.feed-item p{font-size:11px;color:var(--ink-2);line-height:1.6;margin-top:2px}
+.feed-item small{display:block;font-family:var(--mono);font-size:7.5px;color:var(--ink-3);margin-top:4px}
+.detail__bar--actions .btn{flex:1}
+.detail__bar--actions .btn--ghost{flex:0 0 auto;min-width:112px}
+.sheet-root.is-over-detail{z-index:160}
+
+/* 15.7 校历 */
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
+.cal-head .cal-nav{width:26px;height:26px;border-radius:5px;border:1px solid var(--line);color:var(--ink-2);display:grid;place-items:center;flex:none}
+.cal-head .cal-nav:hover{border-color:var(--brand-3);color:var(--brand)}
+.cal-head .cal-ym{text-align:center;flex:1;min-width:0}
+.cal-head .cal-ym b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.cal-head .cal-ym small{display:block;font-family:var(--mono);font-size:8px;color:var(--ink-3);letter-spacing:.08em;margin-top:2px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.cal-dow{font-family:var(--mono);font-size:7.5px;letter-spacing:.06em;color:var(--ink-3);text-align:center;padding:3px 0 4px}
+.cal-cell{min-height:56px;border:1px solid var(--line-2);border-radius:4px;background:#fff;padding:4px 3px;display:flex;flex-direction:column;gap:2px;text-align:left;overflow:hidden;transition:border-color .16s,background .16s}
+.cal-cell:hover{border-color:#C9DCEE;background:#FAFDFF}
+.cal-cell.is-out{opacity:.34;pointer-events:none}
+.cal-cell.is-weekend .cal-d{color:#A65A48}
+.cal-cell.is-today{border-color:var(--brand-3);background:#F2F8FF}
+.cal-cell.is-sel{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);background:#F7FBFF}
+.cal-d{font-family:var(--serif);font-size:11.5px;font-weight:700;line-height:1;color:var(--ink-2)}
+.cal-cell.is-today .cal-d{color:var(--brand)}
+.cal-ev{display:block;font-size:7.8px;line-height:1.35;padding:1px 3px;border-radius:2px;background:#EAF2FC;color:#2A4C6E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-ev--red{background:#FCEBE7;color:#A63C22}
+.cal-ev--amber{background:#FFF4DF;color:#8A5A12}
+.cal-ev--green{background:#E7F3EC;color:#1F5A44}
+.cal-ev--more{background:none;color:var(--ink-3);padding:0 3px}
+.cal-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px;font-family:var(--mono);font-size:7.5px;color:var(--ink-3)}
+.cal-legend i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:3px;vertical-align:0}
+.cal-day{margin-top:12px;border:1px solid var(--line);border-radius:7px;padding:10px 11px;background:#FBFDFF}
+.cal-day .cd-k{font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;color:var(--ink-3)}
+.cal-day b{display:block;font-size:12.5px;margin-top:4px}
+.cal-day p{font-size:11px;color:var(--ink-2);margin-top:3px;line-height:1.6}
+.cal-list{margin-top:14px}
+.cal-li{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--line-2);align-items:flex-start}
+.cal-li:last-child{border-bottom:0}
+.cal-li .cl-date{flex:none;font-family:var(--mono);font-size:7.8px;color:var(--brand);background:#EFF6FF;border:1px solid #DCE9F7;padding:3px 5px;border-radius:3px;min-width:62px;text-align:center;line-height:1.5}
+.cal-li .cl-main{flex:1;min-width:0}
+.cal-li b{display:block;font-size:11.5px;font-weight:650}
+.cal-li small{display:block;font-size:10px;color:var(--ink-3);margin-top:2px;line-height:1.5}
+.cal-li.is-sel{background:#F4FAFF;border-radius:5px;padding:8px 5px}
+@media (min-width:560px){
+  .cal-cell{min-height:72px;padding:5px 4px}
+  .cal-d{font-size:13px}
+  .cal-ev{font-size:8.5px}
+}
+@media (min-width:760px){
+  .sheet--cal{width:min(760px,94vw)}
+  .cal-cell{min-height:84px;padding:6px 5px;gap:3px}
+  .cal-d{font-size:14px}
+  .cal-ev{font-size:9.5px;padding:2px 4px}
+}
+@media (max-width:420px){
+  .pts-pill .pts-txt{display:none}
+  .boost-bar .btn{height:30px;padding:0 9px;font-size:10.5px}
+}
+/* 小屏把 AI 入口收成圆形，避免遮挡常用服务卡片文字 */
+@media (max-width:979px){
+  .ai-fab{width:50px;height:50px;padding:0;justify-content:center;border-radius:50%;gap:0}
+  .ai-fab > .fab-label{display:none}
+  .ai-fab .ai-dot{width:24px;height:24px}
+}
+
+/* 15.8 常用服务 6 宫格 */
+.quick-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+@media (min-width:560px){
+  .quick-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:760px){
+  .quick-grid{grid-template-columns:repeat(3,1fr);gap:10px}
+  .quick-item{padding:12px 13px}
+}
+
+/* 15.9 校园服务：跑腿 / 好店 票券 */
+.svc-card--errand{background:linear-gradient(150deg,#FBF1DE,#F5E4C6);border-color:#EEDCC0}
+.svc-card--errand .svc-card__tag{color:#8A6A34}
+.svc-card--errand .svc-card__count{background:rgba(255,255,255,.72);color:#8A6A34}
+.svc-card--errand p{color:#7C6238}
+.svc-card--errand .svc-card__go{color:#8A5A12}
+.svc-card--errand .svc-card__arts .a{background:rgba(255,255,255,.82)}
+.svc-card--shop{background:#14304F;border-color:#14304F;color:#EFF6FC}
+.svc-card--shop .svc-card__tag{color:rgba(206,228,247,.55)}
+.svc-card--shop .svc-card__count{background:rgba(255,255,255,.1);color:#CFE3F6}
+.svc-card--shop p{color:rgba(206,228,247,.66)}
+.svc-card--shop .svc-card__go{color:#7DD3FC}
+.svc-card--shop .svc-card__arts .a{background:#F2F8FD}
 </style>
 </head>
 <body>
@@ -1065,7 +1234,7 @@ body.detail-lock .toast-root{bottom:auto;top:calc(14px + env(safe-area-inset-top
       <p class="auth-hero__sub">课表、校园服务与 AI 助手自然连接，让每一次查询、协作与分享都更简单。</p>
       <ul class="auth-hero__points">
         <li><span class="dot"></span>课表一眼看清，还支持一键智能导入</li>
-        <li><span class="dot"></span>校内面交，闲置在宿舍楼下完成流转</li>
+        <li><span class="dot"></span>校内面交与顺路跑腿，小事在宿舍楼下解决</li>
         <li><span class="dot"></span>校园墙记录日常，找到同频的人</li>
       </ul>
     </div>
@@ -1154,7 +1323,7 @@ body.detail-lock .toast-root{bottom:auto;top:calc(14px + env(safe-area-inset-top
         <path d="M18.4 14.6l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z"/>
       </svg>
     </span>
-    <span>小轻AI</span>
+    <span class="fab-label">小轻AI</span>
   </button>
 
   <nav class="tabbar" id="tabbar" aria-label="主导航">
@@ -1218,7 +1387,10 @@ const ICON = {
   grid: '<rect x="3.2" y="3.2" width="7.4" height="7.4" rx="2.2"/><rect x="13.4" y="3.2" width="7.4" height="7.4" rx="2.2"/><rect x="3.2" y="13.4" width="7.4" height="7.4" rx="2.2"/><rect x="13.4" y="13.4" width="7.4" height="7.4" rx="2.2"/>',
   calendar: '<rect x="3.4" y="5" width="17.2" height="16" rx="3"/><path d="M8 3v4M16 3v4M3.4 10h17.2"/>',
   door: '<path d="M5 21V4.5A1.5 1.5 0 0 1 6.5 3H17a1 1 0 0 1 1 1v17"/><path d="M3 21h18M14 12h.01"/>',
-  phone: '<path d="M6.2 3.5h3l1.5 4-2 1.4a11 11 0 0 0 5.4 5.4l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.2 5.7a2 2 0 0 1 2-2.2z"/>'
+  phone: '<path d="M6.2 3.5h3l1.5 4-2 1.4a11 11 0 0 0 5.4 5.4l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.2 5.7a2 2 0 0 1 2-2.2z"/>',
+  box: '<path d="M3.8 8.1 12 4l8.2 4.1v7.8L12 20l-8.2-4.1z"/><path d="M3.9 8.1 12 12.2l8.1-4.1M12 12.2V20"/>',
+  store: '<path d="M4 10.4v9.1h16v-9.1"/><path d="M3.2 10.4 5 4.5h14l1.8 5.9z"/><path d="M9.6 19.5v-5.4h4.8v5.4"/>',
+  coin: '<circle cx="12" cy="12" r="8.2"/><path d="M9.4 9.2h5.2M9.4 12h5.2M12 9.2v6.4"/>'
 };
 function icon(name, size = 18, extra = '') {
   return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICON[name] || ''}</svg>`;
@@ -1232,7 +1404,8 @@ const ART_BG = {
   book: '#F2E8D5', laptop: '#E3EBF5', bike: '#E7EEF7', headphones: '#EFE6F2',
   camera: '#F3E6DB', plant: '#E2ECF7', food: '#F9EAD1', lamp: '#F3EEDC',
   keyboard: '#E7E9F0', clothes: '#F1E7E9', guitar: '#F8E8D6', ball: '#F8E2D2',
-  key: '#EDEBDC', heart: '#F9E5E2', cat: '#F2EADC', cup: '#F2E9DB', sun: '#FAEFD6'
+  key: '#EDEBDC', heart: '#F9E5E2', cat: '#F2EADC', cup: '#F2E9DB', sun: '#FAEFD6',
+  parcel: '#F4EAD9', store: '#E7EEF7', printer: '#E7E9F0', salon: '#F1E7E9'
 };
 const ART = {
   book: `<rect x="24" y="31" width="72" height="59" rx="7" fill="#FFFDF6" stroke="#17385E" stroke-width="3"/>
@@ -1294,7 +1467,29 @@ const ART = {
     <path d="M44 36c0-5 6-5 6-10M58 36c0-5 6-5 6-10" stroke="#17385E" stroke-width="3" opacity=".28" stroke-linecap="round"/>
     <path d="M32 48h44" stroke="#E9A13B" stroke-width="4"/>`,
   sun: `<circle cx="60" cy="60" r="22" fill="#E9A13B" stroke="#17385E" stroke-width="3"/>
-    <g stroke="#17385E" stroke-width="4" stroke-linecap="round"><path d="M60 22v10M60 88v10M22 60h10M88 60h10M33 33l7 7M80 80l7 7M87 33l-7 7M40 80l-7 7"/></g>`
+    <g stroke="#17385E" stroke-width="4" stroke-linecap="round"><path d="M60 22v10M60 88v10M22 60h10M88 60h10M33 33l7 7M80 80l7 7M87 33l-7 7M40 80l-7 7"/></g>`,
+  parcel: `<path d="M28 38 60 23l32 15v44L60 97 28 82z" fill="#F2E2C6" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M28 38 60 53l32-15M60 53v44" fill="none" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M44 31 76 46v11L44 42z" fill="#E9A13B" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M60 53v13" stroke="#7DD3FC" stroke-width="6" stroke-linecap="round"/>
+    <path d="M36 47l16 8M69 55l16-8" stroke="#17385E" stroke-width="2.5" stroke-linecap="round" opacity=".26"/>`,
+  store: `<path d="M24 51h72v41H24z" fill="#FFFDF6" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M18 51 27 29h66l9 22z" fill="#7DD3FC" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M18 51c0 6 4.6 9 9.6 9s9.6-3 9.6-9M37.2 51c0 6 4.6 9 9.6 9s9.6-3 9.6-9M56.4 51c0 6 4.6 9 9.6 9s9.6-3 9.6-9M75.6 51c0 6 4.6 9 9.6 9s9.6-3 9.6-9" fill="#FFFDF6" stroke="#17385E" stroke-width="2.6" stroke-linejoin="round"/>
+    <rect x="38" y="66" width="20" height="26" rx="3" fill="#17385E"/>
+    <circle cx="53" cy="79" r="2.4" fill="#7DD3FC"/>
+    <rect x="66" y="66" width="18" height="15" rx="2" fill="#7DD3FC" stroke="#17385E" stroke-width="3"/>
+    <path d="M75 66v15M66 73.5h18" stroke="#17385E" stroke-width="2.2"/>`,
+  printer: `<rect x="22" y="48" width="76" height="34" rx="5" fill="#FFFDF6" stroke="#17385E" stroke-width="3"/>
+    <path d="M35 48V28h50v20" fill="#F4FAFF" stroke="#17385E" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="35" y="44" width="50" height="6" fill="#7DD3FC" stroke="#17385E" stroke-width="3"/>
+    <rect x="34" y="66" width="52" height="24" rx="2" fill="#7DD3FC" stroke="#17385E" stroke-width="3"/>
+    <path d="M43 74h34M43 81h22" stroke="#17385E" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+    <circle cx="89" cy="58" r="3.4" fill="#E9A13B"/>`,
+  salon: `<circle cx="37" cy="45" r="10" fill="none" stroke="#17385E" stroke-width="3"/>
+    <circle cx="37" cy="77" r="10" fill="none" stroke="#17385E" stroke-width="3"/>
+    <path d="M45 51 87 85M45 71 87 37" stroke="#17385E" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="65" cy="61" r="4" fill="#E9A13B" stroke="#17385E" stroke-width="2.4"/>`
 };
 function art(key, w = '100%') {
   const k = ART[key] ? key : 'book';
@@ -1329,7 +1524,14 @@ function seedDB() {
     users: [{
       u: 'demo', p: '123456', nick: '林小满', sid: '20231028',
       college: '计算机学院 · 软件工程', bio: '大二｜摄影、骑行和一点点咖啡因',
-      created: Date.now()
+      created: Date.now(),
+      points: 320,
+      pointLog: [
+        { d: 100, r: '新人注册奖励', t: '9 月 1 日' },
+        { d: 60, r: '邀请新同学 × 2', t: '10 月 12 日' },
+        { d: 120, r: '完成交易 × 6', t: '10 月 20 日' },
+        { d: 40, r: '发布闲置 × 4', t: '10 月 26 日' }
+      ]
     }],
     courses: [
       { id: 'c01', day: 1, start: 1, len: 2, name: '高等数学 A', teacher: '张建国', room: 'A301', color: 1 },
@@ -1346,7 +1548,7 @@ function seedDB() {
     ],
     items: [
       { id: 'i01', title: '《高等数学》同济第七版 上下册，笔记齐全', price: 28, orig: 79, cat: '教材', cond: '九成新', art: 'book', seller: '陈同学', place: '3 号宿舍楼', wants: 42, time: '2 小时前', mine: false, desc: '大一用过一学期，书角有轻微折痕，内页笔记很全（都是重点）。\n可送到 3 号楼楼下，也可以约图书馆门口。' },
-      { id: 'i02', title: 'iPad Air 4 64G 深空灰，送保护壳', price: 1580, orig: 4399, cat: '数码', cond: '八成新', art: 'laptop', seller: '阿哲', place: '东区 12 栋', wants: 128, time: '4 小时前', mine: false, desc: '屏幕无划痕，电池健康 89%，一直贴膜带壳使用。\n换新出，配件有原装充电器和两个保护壳。' },
+      { id: 'i02', title: 'iPad Air 4 64G 深空灰，送保护壳', price: 1580, orig: 4399, cat: '数码', cond: '八成新', art: 'laptop', seller: '阿哲', place: '东区 12 栋', wants: 128, time: '4 小时前', mine: false, boostUntil: Date.now() + 8 * 3600e3, desc: '屏幕无划痕，电池健康 89%，一直贴膜带壳使用。\n换新出，配件有原装充电器和两个保护壳。' },
       { id: 'i03', title: '捷安特 ATX 山地车，毕业急出', price: 420, orig: 1298, cat: '出行', cond: '七成新', art: 'bike', seller: '老王', place: '南门车棚', wants: 76, time: '昨天', mine: false, desc: '骑了两年，刹车和变速都正常，刚换过后胎。\n带车锁和打气筒，南门车棚自提。' },
       { id: 'i04', title: 'Sony WH-1000XM4 降噪耳机', price: 780, orig: 2299, cat: '数码', cond: '九五新', art: 'headphones', seller: 'Momo', place: '西区 6 栋', wants: 203, time: '昨天', mine: false, desc: '去年双十一买的，用得很少，耳罩无掉皮。\n包装盒、收纳包、音频线都在。' },
       { id: 'i05', title: '宿舍护眼台灯，三档调光', price: 15, orig: 59, cat: '生活', cond: '九成新', art: 'lamp', seller: '小林', place: '6 号楼', wants: 18, time: '2 天前', mine: false, desc: 'USB 供电，三档色温，搬宿舍带不走了。\n15 块拿走，可以送到楼下。' },
@@ -1366,15 +1568,109 @@ function seedDB() {
       { id: 'p07', title: '宿舍阳台的绿萝长疯了，分几枝给大家', content: '水培就能活，放在书桌上很治愈。\n需要的同学在评论区说一声，我带到教学楼。', topic: '日常碎片', art: 'plant', author: '园艺小白', likes: 167, collects: 58, time: '2 天前', mine: false, anon: false, comments: [] },
       { id: 'p08', title: '求推荐：学校附近安静的自习空间', content: '图书馆周末人太多了，想找个能久坐、有插座的地方。\n咖啡店也行，最好不要太吵。', topic: '求助', art: 'lamp', author: '一只柚子', likes: 45, collects: 27, time: '3 天前', mine: false, anon: true, comments: [] }
     ],
+    errands: [
+      { id: 'r01', type: '代取快递', title: '菜鸟驿站两个小件，送到 3 号楼 502', reward: 5, from: '南门菜鸟驿站', to: '3 号楼 502', deadline: '今天 18:00 前', art: 'parcel',
+        note: '两个小盒子不重，取件码我私聊发你。送到 502 门口就行，我一般都在宿舍。', photos: [], publisher: '陈同学', time: '12 分钟前', wants: 6, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r02', type: '代取外卖', title: '一食堂麻辣香锅带到图书馆四楼', reward: 4, from: '一食堂二楼', to: '图书馆四楼自习区', deadline: '30 分钟内', art: 'food',
+        note: '微辣，加一份米饭。到了在门口发消息，我出来拿，别放前台。', photos: [], publisher: '干饭王', time: '25 分钟前', wants: 3, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r03', type: '代取快递', title: '京东大件（显示器）搬到东区 12 栋', reward: 12, from: '北门京东快递点', to: '东区 12 栋 208', deadline: '今晚 20:00 前', art: 'parcel',
+        note: '箱子有点大，一个人能抱动，有电梯。辛苦费 12 元，可以微信转。', photos: [], publisher: '阿哲', time: '1 小时前', wants: 11, status: 'open', owner: null, boostUntil: Date.now() + 5 * 3600e3 },
+      { id: 'r04', type: '代买', title: '帮忙带一份打印纸和两支黑笔', reward: 5, from: '西门文具店', to: '计算机楼 302', deadline: '今天 17:00 前', art: 'store',
+        note: 'A4 打印纸一包 500 张，黑笔 0.5 就行。钱先垫，见面一起结。', photos: [], publisher: 'KK', time: '2 小时前', wants: 2, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r05', type: '代取外卖', title: '北门麦当劳取餐送到北区 8 栋', reward: 8, from: '北门麦当劳', to: '北区 8 栋 401', deadline: '40 分钟内', art: 'food',
+        note: '两份套餐，有点烫，麻烦平放。到楼下打电话，我下去取。', photos: [], publisher: '小满', time: '3 小时前', wants: 5, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r06', type: '代送', title: '把纸质材料送到 B 楼 205 办公室', reward: 10, from: '教务处一楼大厅', to: 'B 楼 205', deadline: '今天 16:30 前', art: 'book',
+        note: '一份盖章材料，用文件袋装好了，送到 205 交给值班老师即可。', photos: [], publisher: '一只柚子', time: '4 小时前', wants: 4, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r07', type: '代排队', title: '校医院帮忙排个号，8 点半到', reward: 15, from: '校医院一楼', to: '3 号楼', deadline: '明天 08:30', art: 'key',
+        note: '只需要帮忙取号排队，我 9 点到，把号给我就行。', photos: [], publisher: '跑步的鱼', time: '昨天', wants: 8, status: 'open', owner: null, boostUntil: 0 },
+      { id: 'r08', type: '代取快递', title: '邮政 EMS 取件，顺路带一下', reward: 5, from: '东门邮政 EMS', to: '6 号楼 316', deadline: '今天 19:00 前', art: 'parcel',
+        note: '一个小包裹，不着急，顺路的同学帮个忙就行。', photos: [], publisher: '小林', time: '昨天', wants: 1, status: 'open', owner: null, boostUntil: 0 }
+    ],
+    shops: [
+      { id: 's01', name: '山丘咖啡 Hill Coffee', cat: '餐饮', addr: '东门文创街 12 号', hours: '08:00 – 22:00', phone: '020-8888 2101', rate: 4.8, art: 'cup', badge: '学生优惠',
+        intro: '开在东门文创街的独立咖啡店，自家烘焙豆子，手冲和拿铁都稳。二楼有一排靠窗长桌，插座管够，很多同学在这里赶 due。',
+        promo: [
+          { t: '满 20 减 5', d: '堂食与自提均可，结账时出示校园卡', until: '长期有效' },
+          { t: '自习套餐 19.9', d: '任意咖啡 + 可颂，限 14:00–17:00', until: '至 12 月 31 日' }
+        ],
+        feed: [
+          { title: '新到耶加雪菲 SOE', text: '浅烘，柑橘和茉莉的香气，手冲 22 元一杯，限量 30 杯。', time: '2 小时前', art: 'cup' },
+          { title: '二楼加了两张长桌', text: '现在能坐 14 个人，每桌都有插座，晚上人少。', time: '昨天', art: 'lamp' }
+        ] },
+      { id: 's02', name: '三味书屋（二手书店）', cat: '书店', addr: '南门学府路 8 号', hours: '09:30 – 21:00', phone: '020-8888 2233', rate: 4.7, art: 'book', badge: '教材回收',
+        intro: '开了十几年的老书店，教材、考研资料、文学书都有，也收二手书。老板会根据品相给价，教材常年八折回收。',
+        promo: [
+          { t: '教材 8 折回收', d: '凭学生证，成色较好即可，当场结算', until: '长期有效' },
+          { t: '考研资料买二送一', d: '指定书架，送完为止', until: '至 11 月 30 日' }
+        ],
+        feed: [
+          { title: '期末教材回收开始', text: '高数、线代、数据结构都在收，成色好的价格更高。', time: '3 小时前', art: 'book' },
+          { title: '新到一批考研英语真题', text: '近十年真题合集，二手指回，20 元一套。', time: '2 天前', art: 'book' }
+        ] },
+      { id: 's03', name: '快印客图文', cat: '打印', addr: '北门科技路 3 号', hours: '08:30 – 20:00', phone: '020-8888 2345', rate: 4.9, art: 'printer', badge: '学生价',
+        intro: '论文打印、装订、彩印、扫描都能做，支持微信传文件到店取。高峰期建议提前一小时线上排队，店里会叫号。',
+        promo: [
+          { t: '论文打印 0.08 元/页', d: '双面黑白，50 页起，含简单装订', until: '长期有效' },
+          { t: '彩色打印 0.6 元/页', d: 'A4 铜版纸，课程作业常用', until: '长期有效' }
+        ],
+        feed: [
+          { title: '期中论文高峰期提醒', text: '本周排队约 40 分钟，建议线上先传文件再来取。', time: '1 小时前', art: 'printer' },
+          { title: '新增胶装服务', text: '毕业论文胶装 8 元/本，当天可取。', time: '3 天前', art: 'printer' }
+        ] },
+      { id: 's04', name: '轻氧健身工作室', cat: '健身', addr: '西门体育路 21 号', hours: '06:00 – 23:00', phone: '020-8888 2468', rate: 4.6, art: 'ball', badge: '新店',
+        intro: '小而全的社区健身房，器械区、自由力量区和团课房都有。学生月卡 199，团课需要提前一天在小程序预约。',
+        promo: [
+          { t: '学生月卡 199', d: '凭学生证办理，含团课', until: '至 12 月 31 日' },
+          { t: '两人同行 8 折', d: '同时办卡，第二人八折', until: '长期有效' }
+        ],
+        feed: [
+          { title: '周三晚新增搏击操', text: '19:30–20:20，教练带课，限 16 人。', time: '5 小时前', art: 'ball' },
+          { title: '器械区换新跑步机', text: '新增 4 台，早 6 点到 8 点人最少。', time: '4 天前', art: 'ball' }
+        ] },
+      { id: 's05', name: '剪艺造型（校园店）', cat: '理发', addr: '东门文创街 5 号', hours: '10:00 – 21:30', phone: '020-8888 2579', rate: 4.5, art: 'salon', badge: '学生价',
+        intro: '校内同学常去的理发店，剪发不推销办卡，价格为明码标价。周末人多，建议工作日下午过去。',
+        promo: [
+          { t: '学生剪发 25 元', d: '洗剪吹，不限男女，凭校园卡', until: '长期有效' },
+          { t: '烫染 7 折', d: '周一到周四，需提前预约', until: '至 12 月 15 日' }
+        ],
+        feed: [
+          { title: '周末预约已开放', text: '周六还有 4 个位置，微信可约。', time: '昨天', art: 'salon' },
+          { title: '新到几款学生短发', text: '店里有样片，可以直接照着剪。', time: '5 天前', art: 'salon' }
+        ] },
+      { id: 's06', name: '24h 便利站', cat: '超市', addr: '3 号楼一层东侧', hours: '24 小时营业', phone: '020-8888 2680', rate: 4.8, art: 'store', badge: '夜间配送',
+        intro: '宿舍楼下的便利店，饮料、零食、日用品、关东煮都有。22:00 后可以送到宿舍门口，加 2 元配送费。',
+        promo: [
+          { t: '夜宵第二件半价', d: '22:00–02:00，关东煮与面包', until: '长期有效' },
+          { t: '满 15 元送宿舍', d: '3 号楼与 6 号楼，夜间下单', until: '至 11 月 30 日' }
+        ],
+        feed: [
+          { title: '关东煮换新汤底', text: '新增番茄口味，夜间卖得最好。', time: '3 小时前', art: 'food' },
+          { title: '补货：暖宝宝和热水袋', text: '降温了，货架二层，数量有限。', time: '昨天', art: 'store' }
+        ] }
+    ],
     likes: [], collects: [], wants: []
   };
+}
+/* 旧版本数据平滑升级：补齐跑腿 / 好店 / 积分字段，不覆盖用户已有内容 */
+function migrateDB(d) {
+  const seed = seedDB();
+  if (!Array.isArray(d.errands)) d.errands = seed.errands;
+  if (!Array.isArray(d.shops)) d.shops = seed.shops;
+  if (!Array.isArray(d.likes)) d.likes = [];
+  if (!Array.isArray(d.collects)) d.collects = [];
+  if (!Array.isArray(d.wants)) d.wants = [];
+  d.users.forEach((u) => {
+    if (typeof u.points !== 'number') u.points = 200;
+    if (!Array.isArray(u.pointLog)) u.pointLog = [{ d: 200, r: '历史积分结转', t: '升级时' }];
+  });
+  return d;
 }
 function loadDB() {
   try {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const d = JSON.parse(raw);
-      if (d && d.version === 1 && Array.isArray(d.courses)) return d;
+      if (d && d.version === 1 && Array.isArray(d.courses)) return migrateDB(d);
     }
   } catch (e) { /* ignore */ }
   const s = seedDB();
@@ -1383,10 +1679,127 @@ function loadDB() {
 }
 let db = loadDB();
 function saveDB() {
-  try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) { /* ignore */ }
+  try { localStorage.setItem(KEY, JSON.stringify(db)); return true; }
+  catch (e) { toast('本机存储空间不足，可减少图片数量后重试'); return false; }
 }
 function me() { return db.users.find((u) => u.u === db.session) || db.users[0]; }
 function isMine(x) { return !!x && x.owner === db.session; }
+
+/* ================= 3.5 积分 / 推流 / 照片 ================= */
+const POINT_RULES = [
+  { k: 'register', label: '新人注册', pts: 100, note: '注册即到账，一次性', i: 'spark' },
+  { k: 'item', label: '发布闲置 / 跑腿', pts: 10, note: '每条内容发布后到账', i: 'bag' },
+  { k: 'post', label: '发布校园墙动态', pts: 5, note: '每日最多 3 次', i: 'heart' },
+  { k: 'deal', label: '完成一笔交易', pts: 20, note: '标记售出或确认完成', i: 'check' },
+  { k: 'run', label: '完成一次跑腿', pts: 15, note: '接单并送达后到账', i: 'box' },
+  { k: 'invite', label: '邀请新同学', pts: 30, note: '对方注册成功后到账', i: 'send' }
+];
+const BOOST_TIERS = [
+  { h: 6, pts: 30, label: '6 小时', desc: '小范围优先展示' },
+  { h: 24, pts: 80, label: '24 小时', desc: '列表前排 + 推流标识' },
+  { h: 72, pts: 200, label: '3 天', desc: '持续置顶，曝光最高' }
+];
+function myPoints() { return me().points || 0; }
+function addPoints(n, reason, silent) {
+  const u = me();
+  u.points = Math.max(0, (u.points || 0) + n);
+  if (!Array.isArray(u.pointLog)) u.pointLog = [];
+  u.pointLog.unshift({ d: n, r: reason, t: '刚刚' });
+  u.pointLog = u.pointLog.slice(0, 40);
+  saveDB();
+  syncPointsPill();
+  if (!silent) toast(n > 0 ? `积分 +${n} · ${reason}` : `积分 ${n} · ${reason}`);
+  return u.points;
+}
+function syncPointsPill() {
+  $$('.pts-pill b').forEach((el) => { el.textContent = num(myPoints()); });
+}
+function isBoosted(x) { return !!x && (x.boostUntil || 0) > Date.now(); }
+function boostLeft(x) {
+  const ms = (x.boostUntil || 0) - Date.now();
+  if (ms <= 0) return '';
+  const h = Math.ceil(ms / 3600000);
+  return h >= 24 ? `${Math.ceil(h / 24)} 天` : `${h} 小时`;
+}
+function boostTag(x) {
+  return isBoosted(x) ? `<span class="boost-tag">${icon('fire', 9)}推流中</span>` : '';
+}
+function coverInner(rec) {
+  const p = rec && rec.photos && rec.photos[0];
+  return p ? `<img class="photo" src="${p}" alt="${esc(rec.title || '照片')}" />` : art((rec && rec.art) || 'book');
+}
+function recThumb(rec, size = '34px') {
+  const p = rec && rec.photos && rec.photos[0];
+  return `<span class="src-thumb">${p ? `<img class="photo" src="${p}" alt="" />` : art((rec && rec.art) || 'book', size)}</span>`;
+}
+
+/* 本地图片读取 + 压缩，避免 localStorage 被原图撑爆 */
+function compressImage(file, maxSide = 1000, quality = 0.72) {
+  return new Promise((resolve, reject) => {
+    if (!file || !/^image\//.test(file.type)) { reject(new Error('not image')); return; }
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('read fail'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('decode fail'));
+      img.onload = () => {
+        try {
+          const scale = Math.min(1, maxSide / Math.max(img.width || 1, img.height || 1));
+          const w = Math.max(1, Math.round((img.width || 1) * scale));
+          const h = Math.max(1, Math.round((img.height || 1) * scale));
+          const cv = document.createElement('canvas');
+          cv.width = w; cv.height = h;
+          const ctx = cv.getContext('2d');
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(cv.toDataURL('image/jpeg', quality));
+        } catch (e) { reject(e); }
+      };
+      img.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+const PHOTO_MAX = 4;
+function photoFieldHTML(id) {
+  return `<div class="field">
+      <span>实拍照片<span style="font-weight:400;color:var(--ink-3);margin-left:6px">选填 · 最多 ${PHOTO_MAX} 张</span></span>
+      <div class="photo-row" id="${id}"></div>
+      <input type="file" id="${id}Input" accept="image/*" multiple hidden />
+      <p class="hint" id="${id}Hint">支持 JPG / PNG，导入后自动压缩并保存在本机。</p>
+    </div>`;
+}
+function bindPhotoField(sheet, id, store) {
+  const row = sheet.querySelector('#' + id);
+  const input = sheet.querySelector('#' + id + 'Input');
+  const hint = sheet.querySelector('#' + id + 'Hint');
+  if (!row || !input || !hint) return;
+  const draw = () => {
+    row.innerHTML = store.map((src, i) => `<div class="photo-thumb"><img src="${src}" alt="照片 ${i + 1}" /><button type="button" class="rm" data-rm="${i}" aria-label="删除照片">${icon('close', 10)}</button></div>`).join('')
+      + (store.length < PHOTO_MAX ? `<label class="photo-add" for="${id}Input">${icon('plus', 15)}<span>添加</span></label>` : '');
+    hint.textContent = store.length
+      ? `已添加 ${store.length}/${PHOTO_MAX} 张 · 第一张作为封面`
+      : '支持 JPG / PNG，最多 4 张，可直接用手机拍照上传';
+  };
+  row.addEventListener('click', (e) => {
+    const rm = e.target.closest('[data-rm]');
+    if (!rm) return;
+    store.splice(Number(rm.dataset.rm), 1);
+    draw();
+  });
+  input.addEventListener('change', async () => {
+    const files = Array.from(input.files || []).slice(0, PHOTO_MAX - store.length);
+    input.value = '';
+    if (!files.length) return;
+    hint.textContent = '正在压缩图片…';
+    for (const f of files) {
+      try { store.push(await compressImage(f)); } catch (e) { toast('有一张图片读取失败，已跳过'); }
+    }
+    draw();
+  });
+  draw();
+}
 
 /* ================= 4. 日期 ================= */
 function mondayOf(date) {
@@ -1415,6 +1828,8 @@ function greet() {
 const state = {
   tab: 'home', page: null, weekOffset: 0, showAllPeriods: false,
   mcat: '全部', msort: 'new', mq: '',
+  ecat: '全部', esort: 'new', eq: '',
+  scat: '全部',
   wtopic: '全部', authTab: 'login'
 };
 let sheetTimer = null;
@@ -1445,6 +1860,7 @@ function openSheet(opts) {
       ${opts.foot ? `<div class="sheet__foot">${opts.foot}</div>` : ''}
     </div>`;
   root.style.display = 'block';
+  root.classList.toggle('is-over-detail', !!detailView);
   void root.offsetHeight;
   root.classList.add('is-open');
   document.body.classList.add('no-scroll');
@@ -1566,12 +1982,14 @@ $('#registerForm').addEventListener('submit', (e) => {
   if (p !== p2) return showErr(err, '两次输入的密码不一致');
   db.users.push({
     u, p, nick, sid, college: '未填写学院', bio: '刚来到智慧校园4.0，请多关照',
-    created: Date.now()
+    created: Date.now(),
+    points: 100,
+    pointLog: [{ d: 100, r: '新人注册奖励', t: '刚刚' }]
   });
   db.session = u;
   saveDB();
   enterApp();
-  toast('注册成功，欢迎加入智慧校园4.0');
+  toast('注册成功，已送 100 积分');
 });
 $$('[data-eye]').forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -1613,6 +2031,8 @@ async function renderPage(animate = false) {
   } else if (state.tab === 'services') {
     if (state.page === 'market') { host.innerHTML = marketHTML(); refreshMarket(); }
     else if (state.page === 'wall') { host.innerHTML = wallHTML(); refreshWall(); }
+    else if (state.page === 'errands') { host.innerHTML = errandsHTML(); refreshErrands(); }
+    else if (state.page === 'shops') { host.innerHTML = shopsHTML(); refreshShops(); }
     else host.innerHTML = servicesHTML();
   } else host.innerHTML = profileHTML();
   updateTabs();
@@ -2075,6 +2495,14 @@ function homeHTML() {
         <span class="quick-ico q-amber" style="color:#8A5A12">${icon('bag', 18)}</span>
         <span class="quick-label">跳蚤市场<i>${db.items.length} 件在售</i></span>
       </button>
+      <button class="quick-item" data-action="open-errands">
+        <span class="quick-ico" style="background:#FBF0DC;color:#8A5A12">${icon('box', 18)}</span>
+        <span class="quick-label">校园跑腿<i>${db.errands.filter((x) => x.status === 'open').length} 单待接</i></span>
+      </button>
+      <button class="quick-item" data-action="open-shops">
+        <span class="quick-ico" style="background:#E9F1FA;color:#2C5A96">${icon('store', 18)}</span>
+        <span class="quick-label">附近好店<i>${db.shops.length} 家店</i></span>
+      </button>
       <button class="quick-item" data-action="open-wall">
         <span class="quick-ico q-coral" style="color:#B23B25">${icon('heart', 18)}</span>
         <span class="quick-label">校园墙<i>${db.posts.length} 条动态</i></span>
@@ -2360,6 +2788,8 @@ function openImportSheet() {
 function servicesHTML() {
   const itemCount = db.items.length;
   const postCount = db.posts.length;
+  const openErrands = db.errands.filter((x) => x.status === 'open').length;
+  const shopCount = db.shops.length;
   const arts = ['book', 'camera', 'bike'];
   return `
   <div class="page-head fade-up">
@@ -2383,9 +2813,24 @@ function servicesHTML() {
       </div>
     </button>
 
+    <button class="svc-card svc-card--errand" data-action="open-errands">
+      <div class="svc-card__top">
+        <span class="svc-card__tag">02 — CAMPUS ERRAND</span>
+        <span class="svc-card__count">${openErrands} 单待接</span>
+      </div>
+      <div>
+        <h3>校园跑腿</h3>
+        <p>代取快递、代取外卖、代买代送，顺路的搭把手，也赚点零花。</p>
+      </div>
+      <div class="svc-card__foot">
+        <div class="svc-card__arts">${['parcel', 'food', 'cup'].map((a) => `<span class="a">${art(a)}</span>`).join('')}</div>
+        <span class="svc-card__go">去接单 ${icon('chev', 14)}</span>
+      </div>
+    </button>
+
     <button class="svc-card svc-card--wall" data-action="open-wall">
       <div class="svc-card__top">
-        <span class="svc-card__tag">02 — CAMPUS WALL</span>
+        <span class="svc-card__tag">03 — CAMPUS WALL</span>
         <span class="svc-card__count">${postCount} 条动态</span>
       </div>
       <div>
@@ -2397,10 +2842,25 @@ function servicesHTML() {
         <span class="svc-card__go">去看看 ${icon('chev', 14)}</span>
       </div>
     </button>
+
+    <button class="svc-card svc-card--shop" data-action="open-shops">
+      <div class="svc-card__top">
+        <span class="svc-card__tag">04 — NEARBY SHOPS</span>
+        <span class="svc-card__count">${shopCount} 家店</span>
+      </div>
+      <div>
+        <h3>附近好店</h3>
+        <p>校门口的咖啡、打印、理发与便利店，凭校园卡还有学生价。</p>
+      </div>
+      <div class="svc-card__foot">
+        <div class="svc-card__arts">${['store', 'cup', 'book'].map((a) => `<span class="a">${art(a)}</span>`).join('')}</div>
+        <span class="svc-card__go">去逛逛 ${icon('chev', 14)}</span>
+      </div>
+    </button>
   </div>
 
   <section class="section">
-    <div class="section__head"><h2><i class="idx">03</i>校园工具箱<span>TOOLKIT</span></h2></div>
+    <div class="section__head"><h2><i class="idx">05</i>校园工具箱<span>TOOLKIT</span></h2></div>
     <div class="tool-grid">
       <button class="tool-card" data-action="tool" data-tool="room">
         <span class="quick-ico q-green">${icon('door', 18)}</span>
@@ -2422,7 +2882,7 @@ function servicesHTML() {
   </section>
 
   <section class="section">
-    <div class="section__head"><h2><i class="idx">04</i>校园公告<span>NOTICE</span></h2><span class="section__more">学生事务中心</span></div>
+    <div class="section__head"><h2><i class="idx">06</i>校园公告<span>NOTICE</span></h2><span class="section__more">学生事务中心</span></div>
     <div class="notice-card">
       <div class="notice-row"><span class="n-date">10/28</span><p>图书馆四楼自习区延长开放至 23:00</p><span class="tag">通知</span></div>
       <div class="notice-row"><span class="n-date">10/30</span><p>校园卡系统维护，22:00–24:00 暂停充值</p><span class="tag">维护</span></div>
@@ -2443,6 +2903,7 @@ function marketHTML() {
     <button class="icon-btn" data-action="back" aria-label="返回">${icon('back', 17)}</button>
     <h1>跳蚤市场</h1>
     <div class="sub-actions">
+      <button class="pts-pill" data-action="open-points" aria-label="积分中心">${icon('coin', 12)}<span class="pts-txt">积分</span><b>${num(myPoints())}</b></button>
       <button class="pill-btn" data-action="publish-item">${icon('plus', 14)} 发布</button>
     </div>
   </div>
@@ -2450,13 +2911,18 @@ function marketHTML() {
   <div class="chips" id="mCats">
     ${M_CATS.map((c) => `<button class="chip ${state.mcat === c ? 'is-active' : ''}" data-mcat="${c}">${c === '全部' ? '全部好物' : c}</button>`).join('')}
   </div>
+  <div class="boost-bar">
+    <span class="bb-ico">${icon('fire', 14)}</span>
+    <div class="bb-main"><b>积分推流，曝光翻倍</b><small>BOOST · ${BOOST_TIERS[0].pts} 积分起 · 置顶 ${BOOST_TIERS[0].label}</small></div>
+    <button class="btn btn--primary btn--sm" data-action="open-boost" data-kind="item">去推流</button>
+  </div>
   <div class="market-meta">
     <span class="count" id="mCount"></span>
     <div class="sorts" id="mSorts">
       ${[['new', '最新'], ['price', '价格'], ['wants', '热门']].map(([k, l]) => `<button class="sort-btn ${state.msort === k ? 'is-active' : ''}" data-msort="${k}">${l}</button>`).join('')}
     </div>
   </div>
-  <div class="masonry" id="marketGrid"></div>
+  <div class="masonry card-flow" id="marketGrid"></div>
   <div class="foot-note">校内面交 · 建议当面验货后再付款</div>`;
 }
 
@@ -2467,9 +2933,10 @@ function marketList() {
     const q = state.mq.trim().toLowerCase();
     list = list.filter((i) => (i.title + i.desc + i.seller + i.cat + i.place).toLowerCase().includes(q));
   }
-  if (state.msort === 'price') list.sort((a, b) => a.price - b.price);
-  else if (state.msort === 'wants') list.sort((a, b) => b.wants - a.wants);
-  else list.sort((a, b) => (isMine(b) ? 1 : 0) - (isMine(a) ? 1 : 0));
+  const cmp = state.msort === 'price' ? (a, b) => a.price - b.price
+    : state.msort === 'wants' ? (a, b) => b.wants - a.wants
+      : (a, b) => (isMine(b) ? 1 : 0) - (isMine(a) ? 1 : 0);
+  list.sort((a, b) => (isBoosted(b) ? 1 : 0) - (isBoosted(a) ? 1 : 0) || cmp(a, b));
   return list;
 }
 function refreshMarket() {
@@ -2480,17 +2947,19 @@ function refreshMarket() {
   if (count) count.textContent = `${list.length} 件好物 · 校内面交`;
   $$('#mCats .chip').forEach((b) => b.classList.toggle('is-active', b.dataset.mcat === state.mcat));
   $$('#mSorts .sort-btn').forEach((b) => b.classList.toggle('is-active', b.dataset.msort === state.msort));
+  syncPointsPill();
   if (!list.length) {
     grid.innerHTML = `<div class="empty" style="column-span:all">
       <div class="em-ico">🔍</div><b>没有找到相关好物</b><p>换个关键词，或者自己发一件试试</p>
     </div>`;
     return;
   }
-  grid.innerHTML = list.map((i) => `
-    <div class="m-card" role="button" tabindex="0" data-action="open-item" data-id="${i.id}">
+  grid.innerHTML = list.map((i, idx) => `
+    <div class="m-card" role="button" tabindex="0" data-action="open-item" data-id="${i.id}" style="--i:${Math.min(idx, 8)}">
       <div class="m-cover" style="background:${ART_BG[i.art] || '#F2E8D5'}">
         <span class="cond">${esc(i.cat)}${isMine(i) ? ' · MINE' : ''}</span>
-        ${art(i.art)}
+        ${boostTag(i)}
+        ${coverInner(i)}
       </div>
       <div class="m-body">
         <div class="m-title">${esc(i.title)}</div>
@@ -2504,71 +2973,154 @@ function refreshMarket() {
     </div>`).join('');
 }
 
-function openItem(id) {
+/* 闲置详情：与校园墙一致的全屏详情 + 封面飞入转场 */
+function itemDetailHTML(it) {
+  const photos = it.photos || [];
+  const mine = isMine(it);
+  const wanted = db.wants.includes(it.id);
+  return `
+  <div class="detail__top">
+    <button class="detail__back" data-action="close-detail" aria-label="返回">${icon('back', 18)}</button>
+    <button class="detail__share" data-action="share-item" aria-label="分享">${icon('send', 16)}</button>
+    <span class="detail__count">${esc(it.cat)} · ${esc(it.cond)}</span>
+  </div>
+  <div class="detail__scroll">
+    <div class="detail__cover" style="background:${photos.length ? '#0A1B30' : (ART_BG[it.art] || '#F2E8D5')}">${photos.length ? `<img class="photo" src="${photos[0]}" alt="实拍照片" />` : art(it.art)}</div>
+    <div class="detail__body">
+      ${photos.length > 1 ? `<div class="item-thumbs" id="itThumbs" style="margin:0 0 16px">${photos.map((p, i) => `<button type="button" class="${i === 0 ? 'is-on' : ''}" data-thumb="${i}" aria-label="查看第 ${i + 1} 张照片"><img src="${p}" alt="照片 ${i + 1}" /></button>`).join('')}</div>` : ''}
+      <div class="detail__topic">在售 · ${esc(it.place)}</div>
+      <h1 class="detail__title">${esc(it.title)}</h1>
+      <div class="price-row" style="margin-top:12px"><b><small>¥</small>${num(it.price)}</b><del>原价 ¥${num(it.orig)}</del></div>
+      <div class="tag-row" style="margin-top:12px">
+        <span class="tag">${esc(it.cat)}</span>
+        <span class="tag">${esc(it.cond)}</span>
+        <span class="tag">校内面交</span>
+        ${isBoosted(it) ? `<span class="tag" style="background:#FFF4DF;border-color:#F0DCB2;color:#8A5A12">推流中 · 剩余 ${boostLeft(it)}</span>` : ''}
+        ${mine ? '<span class="tag" style="background:#EFF6FF;border-color:#D6E5F7;color:var(--brand)">我发布的</span>' : ''}
+      </div>
+      <p class="detail__text">${esc(it.desc)}</p>
+      <div class="detail__author">
+        ${avatarHTML(it.seller)}
+        <div style="flex:1;min-width:0"><b>${esc(it.seller)}</b><small>${esc(it.place)} · ${esc(it.time)}</small></div>
+        <span class="sb-tag">学生认证</span>
+      </div>
+      <div class="detail__h">INFO · 交易信息</div>
+      <div class="shop-rows">
+        <div class="shop-row"><span class="sr-ico">${icon('bag', 13)}</span><b>成色</b><span class="sr-val">${esc(it.cond)}</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('pin', 13)}</span><b>面交地点</b><span class="sr-val">${esc(it.place)}</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('heart', 13)}</span><b>想要人数</b><span class="sr-val" id="wantNum">${it.wants} 人</span></div>
+      </div>
+      <div style="height:6px"></div>
+    </div>
+  </div>
+  <div class="detail__bar detail__bar--actions">
+    ${mine
+      ? `<button class="btn btn--ghost" data-action="boost-target" data-kind="item" data-id="${it.id}">${icon('fire', 14)} ${isBoosted(it) ? '续推' : '积分推流'}</button>
+         <button class="btn btn--primary" id="soldBtn">标记已售出</button>`
+      : `<button class="btn btn--ghost" data-action="chat">${icon('send', 14)} 聊一聊</button>
+         <button class="btn btn--primary${wanted ? ' btn--lime' : ''}" id="wantBtn">${wanted ? '已加入想要' : '我想要'}</button>`}
+  </div>`;
+}
+
+function bindItemDetail(el, it) {
+  const thumbs = el.querySelector('#itThumbs');
+  if (thumbs) {
+    thumbs.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-thumb]');
+      if (!b) return;
+      const img = el.querySelector('.detail__cover img');
+      if (img) img.src = (it.photos || [])[Number(b.dataset.thumb)];
+      $$('#itThumbs button', el).forEach((x) => x.classList.toggle('is-on', x === b));
+    });
+  }
+
+  const want = el.querySelector('#wantBtn');
+  if (want) {
+    let wanted = db.wants.includes(it.id);
+    want.addEventListener('click', () => {
+      if (wanted) {
+        db.wants = db.wants.filter((x) => x !== it.id);
+        it.wants = Math.max(0, it.wants - 1);
+        wanted = false;
+        want.textContent = '我想要';
+        want.classList.remove('btn--lime');
+        toast('已取消想要');
+      } else {
+        db.wants.push(it.id);
+        it.wants += 1;
+        wanted = true;
+        want.textContent = '已加入想要';
+        want.classList.add('btn--lime');
+        toast('已加入想要，卖家会收到通知');
+      }
+      const numEl = el.querySelector('#wantNum');
+      if (numEl) numEl.textContent = `${it.wants} 人`;
+      const cardWant = document.querySelector(`[data-action="open-item"][data-id="${it.id}"] .m-want`);
+      if (cardWant) cardWant.textContent = `♡ ${it.wants}`;
+      saveDB();
+    });
+  }
+
+  const soldBtn = el.querySelector('#soldBtn');
+  if (soldBtn) {
+    let soldConfirm = false;
+    soldBtn.addEventListener('click', () => {
+      if (!soldConfirm) {
+        soldConfirm = true;
+        soldBtn.textContent = '再点一次确认';
+        soldBtn.style.background = '#FDECE8';
+        return;
+      }
+      db.items = db.items.filter((x) => x.id !== it.id);
+      db.wants = db.wants.filter((x) => x !== it.id);
+      addPoints(20, `完成交易：${it.title.slice(0, 12)}`, true);
+      saveDB();
+      closeDetail();
+      setTimeout(() => { if ($('#marketGrid')) refreshMarket(); }, 520);
+      toast('交易完成，积分 +20');
+    });
+  }
+
+  el.querySelector('[data-action="chat"]')?.addEventListener('click', () => {
+    toast(`已向 ${it.seller} 发起聊天（演示）`);
+  });
+  el.querySelector('[data-action="share-item"]')?.addEventListener('click', async () => {
+    const text = `${it.title} · ¥${it.price} · 来自智慧校园4.0 跳蚤市场`;
+    try {
+      if (navigator.share) { await navigator.share({ title: it.title, text }); return; }
+      await navigator.clipboard.writeText(`${text}\n${location.href}`);
+      toast('链接已复制');
+    } catch (err) { toast('分享已取消'); }
+  });
+  bindPullClose(el);
+}
+
+function openItem(id, origin) {
+  if (detailView) return;
   const it = db.items.find((x) => x.id === id);
   if (!it) return;
-  let wanted = db.wants.includes(it.id);
-  const body = `
-    <div class="item-cover" style="background:${ART_BG[it.art] || '#F2E8D5'}">${art(it.art)}</div>
-    <div class="price-row"><b><small>¥</small>${num(it.price)}</b><del>原价 ¥${num(it.orig)}</del></div>
-    <h2 class="item-title">${esc(it.title)}</h2>
-    <div class="tag-row">
-      <span class="tag">${esc(it.cat)}</span>
-      <span class="tag">${esc(it.cond)}</span>
-      <span class="tag">校内面交</span>
-      ${isMine(it) ? '<span class="tag" style="background:var(--lime-soft);border-color:#DCEBC2;color:var(--brand)">我发布的</span>' : ''}
-    </div>
-    <div class="desc-box">${esc(it.desc)}</div>
-    <div class="seller-box">
-      ${avatarHTML(it.seller)}
-      <div class="sb-txt"><b>${esc(it.seller)}</b><small>${esc(it.place)} · ${esc(it.time)}</small></div>
-      <span class="sb-tag">学生认证</span>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--ink-3)">
-      <span><b id="wantCount" style="color:#C4472C;font-size:13px">${it.wants}</b> 人想要</span>
-      <span>浏览 ${Math.max(it.wants * 7 + 36, 60)} 次</span>
-    </div>`;
-
-  const sheet = openSheet({
-    title: '好物详情',
-    body,
-    foot: `<button class="btn btn--ghost" data-action="chat">${icon('send', 15)} 聊一聊</button>
-           <button class="btn btn--primary" id="wantBtn">${wanted ? '已加入想要' : '我想要'}</button>`
-  });
-  const btn = sheet.querySelector('#wantBtn');
-  if (wanted) btn.classList.add('btn--lime');
-  btn.addEventListener('click', () => {
-    if (wanted) {
-      db.wants = db.wants.filter((x) => x !== it.id);
-      it.wants = Math.max(0, it.wants - 1);
-      wanted = false;
-      btn.textContent = '我想要';
-      btn.classList.remove('btn--lime');
-      toast('已取消想要');
-    } else {
-      db.wants.push(it.id);
-      it.wants += 1;
-      wanted = true;
-      btn.textContent = '已加入想要';
-      btn.classList.add('btn--lime');
-      toast('已加入想要，卖家会收到通知');
-    }
-    sheet.querySelector('#wantCount').textContent = it.wants;
-    saveDB();
-    if ($('#marketGrid')) refreshMarket();
-  });
-  sheet.querySelector('[data-action="chat"]').addEventListener('click', () => {
-    toast(`已向 ${it.seller} 发起聊天（演示）`);
+  const photos = it.photos || [];
+  const originCover = origin && origin.querySelector ? origin.querySelector('.m-cover, .cover') : null;
+  openDetailLayer({
+    kind: 'item',
+    id: it.id,
+    html: itemDetailHTML(it),
+    bg: photos.length ? '#0A1B30' : (ART_BG[it.art] || '#F2E8D5'),
+    heroHTML: photos.length ? `<img src="${photos[0]}" alt="" style="width:100%;height:100%;object-fit:cover" />` : art(it.art),
+    from: originCover ? originCover.getBoundingClientRect() : null,
+    bind: (el) => bindItemDetail(el, it)
   });
 }
 
 function openPublishItem() {
   let pick = 'book';
+  const photos = [];
   const body = `
     <form id="itemForm" class="form-grid" novalidate>
       <label class="field"><span>宝贝标题 *</span>
         <input id="itTitle" maxlength="40" placeholder="例如：九成新 iPad Air 4，送保护壳" />
       </label>
+      ${photoFieldHTML('itPhotos')}
       <div class="form-2">
         <label class="field"><span>售价（元）*</span><input id="itPrice" type="number" min="0" step="1" placeholder="0" inputmode="numeric" /></label>
         <label class="field"><span>原价（元）</span><input id="itOrig" type="number" min="0" step="1" placeholder="选填" inputmode="numeric" /></label>
@@ -2582,7 +3134,7 @@ function openPublishItem() {
         </label>
       </div>
       <div class="field">
-        <span>封面图案</span>
+        <span>没有实拍图时使用封面图案</span>
         <div class="art-row" id="itArt">${ART_KEYS.map((a, i) => `<button type="button" class="art-opt ${i === 0 ? 'is-active' : ''}" data-art="${a}" style="background:${ART_BG[a]}">${art(a)}</button>`).join('')}</div>
       </div>
       <label class="field"><span>宝贝描述</span>
@@ -2598,6 +3150,7 @@ function openPublishItem() {
     foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button>
            <button class="btn btn--primary" id="itSubmit">确认发布</button>`
   });
+  bindPhotoField(sheet, 'itPhotos', photos);
   sheet.querySelector('#itArt').addEventListener('click', (e) => {
     const b = e.target.closest('[data-art]');
     if (!b) return;
@@ -2615,6 +3168,7 @@ function openPublishItem() {
       cat: sheet.querySelector('#itCat').value,
       cond: sheet.querySelector('#itCond').value,
       art: pick,
+      photos: photos.slice(),
       seller: me().nick,
       place: sheet.querySelector('#itPlace').value.trim() || '校内面交',
       wants: 0, time: '刚刚', mine: true, owner: db.session,
@@ -2622,9 +3176,563 @@ function openPublishItem() {
     });
     state.mcat = '全部';
     state.mq = '';
+    addPoints(10, '发布闲置', true);
     saveDB(); closeSheet();
+    if (state.page !== 'market') { state.tab = 'services'; state.page = 'market'; }
     renderPage();
-    toast('发布成功，等同学来找你吧');
+    toast('发布成功，积分 +10');
+  });
+}
+
+/* ================= 11.5 校园跑腿 ================= */
+const E_TYPES = ['全部', '代取快递', '代取外卖', '代买代送', '代排队', '其他'];
+const E_STATUS = { open: '待接单', taken: '进行中', done: '已完成' };
+
+function errandsHTML() {
+  return `
+  <div class="subhead fade-up">
+    <button class="icon-btn" data-action="back" aria-label="返回">${icon('back', 17)}</button>
+    <h1>校园跑腿</h1>
+    <div class="sub-actions">
+      <button class="pts-pill" data-action="open-points" aria-label="积分中心">${icon('coin', 12)}<span class="pts-txt">积分</span><b>${num(myPoints())}</b></button>
+      <button class="pill-btn" data-action="publish-errand">${icon('plus', 14)} 发布</button>
+    </div>
+  </div>
+  <div class="searchbar">${icon('search', 17)}<input id="errandSearch" placeholder="搜一搜：快递、外卖、教学楼…" value="${esc(state.eq)}" /></div>
+  <div class="chips" id="eTypes">
+    ${E_TYPES.map((t) => `<button class="chip ${state.ecat === t ? 'is-active' : ''}" data-ecat="${t}">${t === '全部' ? '全部需求' : t}</button>`).join('')}
+  </div>
+  <div class="boost-bar">
+    <span class="bb-ico">${icon('fire', 14)}</span>
+    <div class="bb-main"><b>急单可用积分推流</b><small>BOOST · 置顶后更容易被顺路的同学看到</small></div>
+    <button class="btn btn--primary btn--sm" data-action="open-boost" data-kind="errand">去推流</button>
+  </div>
+  <div class="market-meta">
+    <span class="count" id="eCount"></span>
+    <div class="sorts" id="eSorts">
+      ${[['new', '最新'], ['reward', '悬赏'], ['wants', '热门']].map(([k, l]) => `<button class="sort-btn ${state.esort === k ? 'is-active' : ''}" data-esort="${k}">${l}</button>`).join('')}
+    </div>
+  </div>
+  <div class="masonry card-flow" id="errandGrid"></div>
+  <div class="foot-note">接单前请确认时间与地点 · 仅限校内互助</div>`;
+}
+
+function errandList() {
+  let list = db.errands.slice();
+  if (state.ecat !== '全部') list = list.filter((x) => x.type === state.ecat);
+  if (state.eq.trim()) {
+    const q = state.eq.trim().toLowerCase();
+    list = list.filter((x) => (x.title + x.note + x.from + x.to + x.type + x.publisher).toLowerCase().includes(q));
+  }
+  const cmp = state.esort === 'reward' ? (a, b) => b.reward - a.reward
+    : state.esort === 'wants' ? (a, b) => b.wants - a.wants
+      : (a, b) => 0;
+  list.sort((a, b) => (a.status === 'done' ? 1 : 0) - (b.status === 'done' ? 1 : 0)
+    || (isBoosted(b) ? 1 : 0) - (isBoosted(a) ? 1 : 0)
+    || cmp(a, b));
+  return list;
+}
+
+function refreshErrands() {
+  const grid = $('#errandGrid');
+  if (!grid) return;
+  const list = errandList();
+  const openCount = db.errands.filter((x) => x.status === 'open').length;
+  const c = $('#eCount');
+  if (c) c.textContent = `${list.length} 条需求 · ${openCount} 单待接`;
+  $$('#eTypes .chip').forEach((b) => b.classList.toggle('is-active', b.dataset.ecat === state.ecat));
+  $$('#eSorts .sort-btn').forEach((b) => b.classList.toggle('is-active', b.dataset.esort === state.esort));
+  syncPointsPill();
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty" style="column-span:all"><div class="em-ico">🏃</div><b>暂时没有这类需求</b><p>换个分类，或者自己发一条试试</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map((x, idx) => `
+    <div class="m-card" role="button" tabindex="0" data-action="open-errand" data-id="${x.id}" style="--i:${Math.min(idx, 8)}">
+      <div class="m-cover" style="background:${ART_BG[x.art] || '#F4EAD9'}">
+        <span class="cond">${esc(x.type)}${isMine(x) ? ' · MINE' : ''}</span>
+        ${boostTag(x)}
+        ${coverInner(x)}
+        ${x.status !== 'open' ? `<span class="e-state">${E_STATUS[x.status] || ''}</span>` : ''}
+      </div>
+      <div class="m-body">
+        <div class="m-title">${esc(x.title)}</div>
+        <div class="m-price"><b><small>¥</small>${num(x.reward)}</b><span class="m-cond">${esc(x.deadline)}</span></div>
+        <div class="m-foot">
+          ${avatarHTML(x.publisher)}
+          <span class="m-seller">${esc(x.publisher)} · ${esc(x.to)}</span>
+          <span class="m-want">♡ ${x.wants}</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* 跑腿详情：与校园墙一致的全屏详情 + 封面飞入转场 */
+function errandDetailHTML(x) {
+  const photos = x.photos || [];
+  const mine = isMine(x);
+  const taken = x.status === 'taken' && x.taker === me().nick;
+  const foot = mine
+    ? `<button class="btn btn--ghost" data-action="boost-target" data-kind="errand" data-id="${x.id}">${icon('fire', 14)} ${isBoosted(x) ? '续推' : '积分推流'}</button>
+       <button class="btn btn--primary" data-action="close-detail">关闭</button>`
+    : x.status === 'open'
+      ? `<button class="btn btn--ghost" data-action="close-detail">再看看</button>
+         <button class="btn btn--primary" id="acceptBtn">接单 · 得 15 积分</button>`
+      : taken
+        ? `<button class="btn btn--ghost" data-action="close-detail">关闭</button>
+           <button class="btn btn--primary" id="finishBtn">确认送达 · 得 20 积分</button>`
+        : `<button class="btn btn--primary" data-action="close-detail">关闭</button>`;
+  return `
+  <div class="detail__top">
+    <button class="detail__back" data-action="close-detail" aria-label="返回">${icon('back', 18)}</button>
+    <button class="detail__share" data-action="share-errand" aria-label="分享">${icon('send', 16)}</button>
+    <span class="detail__count">${esc(x.type)} · ${E_STATUS[x.status] || '待接单'}</span>
+  </div>
+  <div class="detail__scroll">
+    <div class="detail__cover" style="background:${photos.length ? '#0A1B30' : (ART_BG[x.art] || '#F4EAD9')}">${photos.length ? `<img class="photo" src="${photos[0]}" alt="实拍照片" />` : art(x.art)}</div>
+    <div class="detail__body">
+      ${photos.length > 1 ? `<div class="item-thumbs" style="margin:0 0 16px">${photos.slice(1).map((p, i) => `<button type="button" aria-label="照片 ${i + 2}"><img src="${p}" alt="照片 ${i + 2}" /></button>`).join('')}</div>` : ''}
+      <div class="detail__topic">悬赏 · ${esc(x.deadline)}</div>
+      <h1 class="detail__title">${esc(x.title)}</h1>
+      <div class="price-row" style="margin-top:12px"><b><small>¥</small>${num(x.reward)}</b><span style="font-size:11.5px;color:var(--ink-3)">悬赏金额</span></div>
+      <div class="tag-row" style="margin-top:12px">
+        <span class="tag">${esc(x.type)}</span>
+        <span class="tag">${E_STATUS[x.status] || '待接单'}</span>
+        ${isBoosted(x) ? `<span class="tag" style="background:#FFF4DF;border-color:#F0DCB2;color:#8A5A12">推流中 · 剩余 ${boostLeft(x)}</span>` : ''}
+        ${mine ? '<span class="tag" style="background:#EFF6FF;border-color:#D6E5F7;color:var(--brand)">我发布的</span>' : ''}
+      </div>
+      <div class="shop-rows">
+        <div class="shop-row"><span class="sr-ico">${icon('pin', 13)}</span><b>取货</b><span class="sr-val">${esc(x.from)}</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('door', 13)}</span><b>送达</b><span class="sr-val">${esc(x.to)}</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('clock', 13)}</span><b>期望</b><span class="sr-val">${esc(x.deadline)}</span></div>
+      </div>
+      <p class="detail__text">${esc(x.note)}</p>
+      <div class="detail__author">
+        ${avatarHTML(x.publisher)}
+        <div style="flex:1;min-width:0"><b>${esc(x.publisher)}</b><small>${esc(x.time)} · 发布</small></div>
+        <span class="sb-tag">${E_STATUS[x.status] || '待接单'}</span>
+      </div>
+      <div class="detail__h">STATUS · 接单状态</div>
+      <div class="shop-rows">
+        <div class="shop-row"><span class="sr-ico">${icon('heart', 13)}</span><b>关注人数</b><span class="sr-val">${x.wants} 人</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('box', 13)}</span><b>接单人</b><span class="sr-val">${x.taker ? esc(x.taker) : '还没有人接单'}</span></div>
+      </div>
+      <div style="height:6px"></div>
+    </div>
+  </div>
+  <div class="detail__bar detail__bar--actions">${foot}</div>`;
+}
+
+function bindErrandDetail(el, x) {
+  const finishFlow = () => {
+    closeDetail();
+    setTimeout(() => { if ($('#errandGrid')) refreshErrands(); }, 520);
+  };
+  const accept = el.querySelector('#acceptBtn');
+  if (accept) {
+    accept.addEventListener('click', () => {
+      x.status = 'taken';
+      x.taker = me().nick;
+      x.wants += 1;
+      addPoints(15, '接下跑腿单', true);
+      saveDB();
+      finishFlow();
+      toast('接单成功，记得按时送到 · 积分 +15');
+    });
+  }
+  const finish = el.querySelector('#finishBtn');
+  if (finish) {
+    finish.addEventListener('click', () => {
+      x.status = 'done';
+      addPoints(20, '完成跑腿', true);
+      saveDB();
+      finishFlow();
+      toast('跑腿完成，积分 +20');
+    });
+  }
+  el.querySelector('[data-action="share-errand"]')?.addEventListener('click', async () => {
+    const text = `${x.title} · 悬赏 ¥${x.reward} · 来自智慧校园4.0 校园跑腿`;
+    try {
+      if (navigator.share) { await navigator.share({ title: x.title, text }); return; }
+      await navigator.clipboard.writeText(`${text}\n${location.href}`);
+      toast('链接已复制');
+    } catch (err) { toast('分享已取消'); }
+  });
+  bindPullClose(el);
+}
+
+function openErrand(id, origin) {
+  if (detailView) return;
+  const x = db.errands.find((v) => v.id === id);
+  if (!x) return;
+  const photos = x.photos || [];
+  const originCover = origin && origin.querySelector ? origin.querySelector('.m-cover, .cover') : null;
+  openDetailLayer({
+    kind: 'errand',
+    id: x.id,
+    html: errandDetailHTML(x),
+    bg: photos.length ? '#0A1B30' : (ART_BG[x.art] || '#F4EAD9'),
+    heroHTML: photos.length ? `<img src="${photos[0]}" alt="" style="width:100%;height:100%;object-fit:cover" />` : art(x.art),
+    from: originCover ? originCover.getBoundingClientRect() : null,
+    bind: (el) => bindErrandDetail(el, x)
+  });
+}
+
+function openPublishErrand() {
+  const photos = [];
+  const body = `
+    <form class="form-grid" novalidate>
+      <label class="field"><span>需求类型 *</span>
+        <select id="erType">${['代取快递', '代取外卖', '代买代送', '代排队', '其他'].map((t) => `<option>${t}</option>`).join('')}</select>
+      </label>
+      <label class="field"><span>标题 *</span>
+        <input id="erTitle" maxlength="40" placeholder="例如：菜鸟驿站两个小件，送到 3 号楼" />
+      </label>
+      ${photoFieldHTML('erPhotos')}
+      <div class="form-2">
+        <label class="field"><span>悬赏金额（元）*</span><input id="erReward" type="number" min="0" step="1" placeholder="5" inputmode="numeric" /></label>
+        <label class="field"><span>期望送达</span><input id="erDeadline" maxlength="16" placeholder="今天 18:00 前" value="今天 18:00 前" /></label>
+      </div>
+      <div class="form-2">
+        <label class="field"><span>取货地点 *</span><input id="erFrom" maxlength="20" placeholder="南门菜鸟驿站" /></label>
+        <label class="field"><span>送达地点 *</span><input id="erTo" maxlength="20" placeholder="3 号楼 502" /></label>
+      </div>
+      <label class="field"><span>补充说明</span>
+        <textarea id="erNote" maxlength="200" placeholder="件数、重量、取件码怎么给你…"></textarea>
+      </label>
+      <p class="hint">发布后可随时用积分给这条需求推流，让更多顺路的同学看到。</p>
+    </form>`;
+  const sheet = openSheet({
+    title: '发布跑腿需求',
+    body,
+    foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button>
+           <button class="btn btn--primary" id="erSubmit">确认发布</button>`
+  });
+  bindPhotoField(sheet, 'erPhotos', photos);
+  sheet.querySelector('#erSubmit').addEventListener('click', () => {
+    const title = sheet.querySelector('#erTitle').value.trim();
+    const reward = Number(sheet.querySelector('#erReward').value);
+    const from = sheet.querySelector('#erFrom').value.trim();
+    const to = sheet.querySelector('#erTo').value.trim();
+    if (!title) { toast('先写一句需求标题吧'); return; }
+    if (!(reward > 0)) { toast('请填写悬赏金额'); return; }
+    if (!from || !to) { toast('取货和送达地点都要填一下'); return; }
+    db.errands.unshift({
+      id: uid('r'), type: sheet.querySelector('#erType').value,
+      title, reward, from, to,
+      deadline: sheet.querySelector('#erDeadline').value.trim() || '时间可商量',
+      art: 'parcel', photos: photos.slice(),
+      note: sheet.querySelector('#erNote').value.trim() || '具体细节可以私聊沟通～',
+      publisher: me().nick, time: '刚刚', wants: 0,
+      status: 'open', owner: db.session, boostUntil: 0
+    });
+    state.ecat = '全部';
+    state.eq = '';
+    addPoints(10, '发布跑腿需求', true);
+    saveDB(); closeSheet();
+    if (state.page !== 'errands') { state.tab = 'services'; state.page = 'errands'; }
+    renderPage();
+    toast('发布成功，积分 +10');
+  });
+}
+
+/* ================= 11.6 附近好店 ================= */
+const S_CATS = ['全部', '餐饮', '书店', '打印', '健身', '理发', '超市'];
+
+function shopsHTML() {
+  return `
+  <div class="subhead fade-up">
+    <button class="icon-btn" data-action="back" aria-label="返回">${icon('back', 17)}</button>
+    <h1>附近好店</h1>
+    <div class="sub-actions">
+      <button class="pill-btn" data-action="publish-shop">${icon('store', 14)} 商家入驻</button>
+    </div>
+  </div>
+  <div class="chips" id="sCats">
+    ${S_CATS.map((c) => `<button class="chip ${state.scat === c ? 'is-active' : ''}" data-scat="${c}">${c === '全部' ? '全部店铺' : c}</button>`).join('')}
+  </div>
+  <div class="market-meta">
+    <span class="count" id="sCount"></span>
+    <span style="font-family:var(--mono);font-size:8.5px;color:var(--ink-3)">凭校园卡可享学生价</span>
+  </div>
+  <div class="masonry card-flow" id="shopGrid"></div>
+  <div class="foot-note">店铺信息由商家自行维护 · 演示数据</div>`;
+}
+
+function shopList() {
+  return state.scat === '全部' ? db.shops.slice() : db.shops.filter((s) => s.cat === state.scat);
+}
+
+function refreshShops() {
+  const grid = $('#shopGrid');
+  if (!grid) return;
+  const list = shopList();
+  const c = $('#sCount');
+  if (c) c.textContent = `${list.length} 家店 · 校园周边`;
+  $$('#sCats .chip').forEach((b) => b.classList.toggle('is-active', b.dataset.scat === state.scat));
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty" style="column-span:all"><div class="em-ico">🏪</div><b>这个分类还没有店铺</b><p>欢迎商家入驻，把好店带给同学</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map((s, idx) => `
+    <div class="m-card" role="button" tabindex="0" data-action="open-shop" data-id="${s.id}" style="--i:${Math.min(idx, 8)}">
+      <div class="m-cover" style="background:${ART_BG[s.art] || '#E7EEF7'};aspect-ratio:4/3">
+        <span class="cond">${esc(s.cat)}</span>
+        <span class="s-rate">★ ${Number(s.rate || 0).toFixed(1)}</span>
+        ${art(s.art)}
+      </div>
+      <div class="m-body">
+        <div class="m-title">${esc(s.name)}</div>
+        <div class="s-meta">
+          <span>${icon('pin', 9)}${esc(s.addr)}</span>
+          <span>${icon('clock', 9)}${esc(s.hours)}</span>
+          <span>${icon('phone', 9)}${esc(s.phone)}</span>
+        </div>
+        ${s.promo && s.promo[0] ? `<span class="s-promo">${esc(s.promo[0].t)}</span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function shopDetailHTML(s) {
+  return `
+  <div class="detail__top">
+    <button class="detail__back" data-action="close-detail" aria-label="返回">${icon('back', 18)}</button>
+    <button class="detail__share" data-action="share-shop" aria-label="分享">${icon('send', 16)}</button>
+    <span class="detail__count">${esc(s.cat)} · ${s.rate ? `★ ${Number(s.rate).toFixed(1)}` : '新店'}</span>
+  </div>
+  <div class="detail__scroll">
+    <div class="detail__cover" style="background:${ART_BG[s.art] || '#E7EEF7'}">${art(s.art)}</div>
+    <div class="detail__body">
+      <div class="detail__topic">附近好店 · ${esc(s.badge || '校园周边')}</div>
+      <h1 class="detail__title">${esc(s.name)}</h1>
+      <div class="tag-row" style="margin-top:12px">
+        <span class="tag">${esc(s.cat)}</span>
+        <span class="tag">营业中</span>
+        ${s.promo && s.promo.length ? `<span class="tag" style="background:#FDEFE6;border-color:#F7DDCC;color:#B4471F">${s.promo.length} 个促销</span>` : ''}
+      </div>
+      <p class="detail__text">${esc(s.intro)}</p>
+      <div class="shop-rows">
+        <div class="shop-row"><span class="sr-ico">${icon('pin', 13)}</span><b>地址</b><span class="sr-val">${esc(s.addr)}</span></div>
+        <div class="shop-row"><span class="sr-ico">${icon('clock', 13)}</span><b>营业时间</b><span class="sr-val">${esc(s.hours)}</span></div>
+        <a class="shop-row" href="tel:${esc((s.phone || '').replace(/\s/g, ''))}"><span class="sr-ico">${icon('phone', 13)}</span><b>联系电话</b><span class="sr-val" style="color:var(--brand-3)">${esc(s.phone)}</span></a>
+      </div>
+      <div class="detail__h">PROMOTION · 促销活动</div>
+      ${(s.promo || []).map((p) => `<div class="promo-item"><b>${esc(p.t)}</b><p>${esc(p.d)}</p><span class="until">${esc(p.until)}</span></div>`).join('') || '<p style="font-size:12px;color:var(--ink-3)">暂无促销活动</p>'}
+      <div class="detail__h">FEED · 店铺动态</div>
+      ${(s.feed || []).map((f) => `<div class="feed-item">
+        <span class="f-ico" style="background:${ART_BG[f.art] || '#F2E8D5'}">${art(f.art || 'store', '40px')}</span>
+        <div style="flex:1;min-width:0"><b>${esc(f.title)}</b><p>${esc(f.text)}</p><small>${esc(f.time)}</small></div>
+      </div>`).join('') || '<p style="font-size:12px;color:var(--ink-3);padding-bottom:10px">店铺还没有发布动态</p>'}
+      <div class="detail__author" style="margin-top:18px">
+        <span class="src-thumb" style="background:${ART_BG[s.art] || '#E7EEF7'}">${art(s.art, '36px')}</span>
+        <div style="flex:1;min-width:0"><b>${esc(s.name)}</b><small>商家入驻 · 信息由商家维护</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="detail__bar detail__bar--actions">
+    <a class="btn btn--ghost btn--sm" href="tel:${esc((s.phone || '').replace(/\s/g, ''))}">${icon('phone', 14)} 拨打电话</a>
+    <button class="btn btn--primary btn--sm" data-action="shop-nav">${icon('pin', 14)} 到这去</button>
+  </div>`;
+}
+
+function bindShopDetail(el, s) {
+  el.querySelector('[data-action="shop-nav"]')?.addEventListener('click', () => {
+    toast(`已为你规划到「${s.name}」的步行路线（演示）`);
+  });
+  el.querySelector('[data-action="share-shop"]')?.addEventListener('click', async () => {
+    const text = `${s.name} · ${s.addr} · 来自智慧校园4.0 附近好店`;
+    try {
+      if (navigator.share) { await navigator.share({ title: s.name, text }); return; }
+      await navigator.clipboard.writeText(`${text}\n${location.href}`);
+      toast('链接已复制');
+    } catch (err) { toast('分享已取消'); }
+  });
+  // 下拉关闭，与校园墙详情一致
+  bindPullClose(el);
+}
+
+function openShop(id, origin) {
+  if (detailView) return;
+  const s = db.shops.find((x) => x.id === id);
+  if (!s) return;
+  const originCover = origin && origin.querySelector ? origin.querySelector('.m-cover, .cover') : null;
+  openDetailLayer({
+    kind: 'shop',
+    id: s.id,
+    html: shopDetailHTML(s),
+    bg: ART_BG[s.art] || '#E7EEF7',
+    heroHTML: art(s.art),
+    from: originCover ? originCover.getBoundingClientRect() : null,
+    bind: (el) => bindShopDetail(el, s)
+  });
+}
+
+function openShopForm() {
+  const body = `
+    <form class="form-grid" novalidate>
+      <label class="field"><span>店铺名称 *</span><input id="shName" maxlength="24" placeholder="例如：山丘咖啡" /></label>
+      <div class="form-2">
+        <label class="field"><span>店铺分类</span>
+          <select id="shCat">${S_CATS.slice(1).map((c) => `<option>${c}</option>`).join('')}</select>
+        </label>
+        <label class="field"><span>联系电话 *</span><input id="shPhone" maxlength="20" placeholder="020-8888 0000" /></label>
+      </div>
+      <label class="field"><span>店铺地址 *</span><input id="shAddr" maxlength="30" placeholder="东门文创街 12 号" /></label>
+      <label class="field"><span>营业时间 *</span><input id="shHours" maxlength="20" placeholder="08:00 – 22:00" value="09:00 – 21:00" /></label>
+      <label class="field"><span>店铺简介</span><textarea id="shIntro" maxlength="200" placeholder="主营什么、有什么特色、适不适合自习…"></textarea></label>
+      <label class="field"><span>首个促销活动</span><input id="shPromo" maxlength="30" placeholder="例如：凭校园卡满 20 减 5" /></label>
+      <p class="hint">提交后店铺会立即出现在「附近好店」，同学可以直接看到地址、营业时间与电话。</p>
+    </form>`;
+  const sheet = openSheet({
+    title: '商家入驻',
+    body,
+    foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button>
+           <button class="btn btn--primary" id="shSubmit">提交入驻</button>`
+  });
+  sheet.querySelector('#shSubmit').addEventListener('click', () => {
+    const name = sheet.querySelector('#shName').value.trim();
+    const addr = sheet.querySelector('#shAddr').value.trim();
+    const hours = sheet.querySelector('#shHours').value.trim();
+    const phone = sheet.querySelector('#shPhone').value.trim();
+    if (!name) { toast('请填写店铺名称'); return; }
+    if (!addr || !hours || !phone) { toast('地址、营业时间和电话都要填一下'); return; }
+    const promo = sheet.querySelector('#shPromo').value.trim();
+    const cat = sheet.querySelector('#shCat').value;
+    const artMap = { 餐饮: 'cup', 书店: 'book', 打印: 'printer', 健身: 'ball', 理发: 'salon', 超市: 'store' };
+    db.shops.unshift({
+      id: uid('s'), name, cat, addr, hours, phone,
+      rate: 4.6, art: artMap[cat] || 'store', badge: '新入驻',
+      intro: sheet.querySelector('#shIntro').value.trim() || '刚入驻智慧校园4.0，欢迎同学们来逛逛。',
+      promo: promo ? [{ t: promo, d: '凭校园卡到店出示即可', until: '长期有效' }] : [],
+      feed: [{ title: '店铺已入驻', text: `${name} 已在附近好店上线，欢迎同学们到店。`, time: '刚刚', art: artMap[cat] || 'store' }]
+    });
+    state.scat = '全部';
+    saveDB(); closeSheet();
+    if (state.page !== 'shops') { state.tab = 'services'; state.page = 'shops'; }
+    renderPage();
+    toast('入驻成功，店铺已上线');
+  });
+}
+
+/* ================= 11.7 积分中心 / 推流 ================= */
+function openPoints() {
+  const u = me();
+  const body = `
+    <div class="pts-hero">
+      <span class="ph-k">MY POINTS · 我的积分</span>
+      <div class="ph-n">${num(u.points || 0)}<small>积分</small></div>
+      <p class="ph-t">积分可用于闲置与跑腿的推流曝光，让内容在列表里排得更前。</p>
+    </div>
+
+    <div class="section__head" style="margin:16px 0 6px"><h2 style="font-size:13px">推流档位<span>BOOST</span></h2></div>
+    <div class="tier-list">
+      ${BOOST_TIERS.map((t) => `<div class="tier" style="cursor:default">
+        <span class="t-pts">${t.pts}</span>
+        <span class="t-main"><b>推流 ${t.label}</b><small>${t.desc}</small></span>
+      </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin:10px 0 2px">
+      <button class="btn btn--primary btn--sm" style="flex:1" data-action="open-boost" data-kind="item">给闲置推流</button>
+      <button class="btn btn--ghost btn--sm" style="flex:1" data-action="open-boost" data-kind="errand">给跑腿推流</button>
+    </div>
+
+    <div class="section__head" style="margin:18px 0 2px"><h2 style="font-size:13px">怎么赚积分<span>EARN</span></h2></div>
+    ${POINT_RULES.map((r) => `<div class="rule-row">
+      <span class="r-ico">${icon(r.i, 13)}</span>
+      <span class="r-main"><b>${r.label}</b><small>${r.note}</small></span>
+      <span class="r-pts">+${r.pts}</span>
+    </div>`).join('')}
+    <button class="btn btn--ghost btn--block" style="margin-top:11px;height:40px;font-size:12.5px" data-action="invite-friend">${icon('send', 14)} 邀请新同学，双方各得 ${POINT_RULES.find((r) => r.k === 'invite').pts} 积分</button>
+
+    <div class="section__head" style="margin:18px 0 2px"><h2 style="font-size:13px">积分明细<span>LOG</span></h2></div>
+    ${(u.pointLog || []).length ? u.pointLog.slice(0, 10).map((l) => `<div class="log-row"><span class="l-t">${esc(l.r)}</span><span style="font-family:var(--mono);font-size:8px;color:var(--ink-3)">${esc(l.t)}</span><span class="l-d ${l.d > 0 ? 'up' : 'down'}">${l.d > 0 ? '+' : ''}${l.d}</span></div>`).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0">还没有积分记录</p>'}
+    <p class="sheet-note">积分与推流为演示机制，不涉及真实支付，「邀请」按钮会直接模拟一次邀请奖励。</p>`;
+  openSheet({ title: '积分中心', body, foot: `<button class="btn btn--primary" data-action="close-sheet">知道了</button>` });
+}
+
+function openBoostHub(kind) {
+  const list = kind === 'errand' ? db.errands.filter(isMine) : db.items.filter(isMine);
+  const body = `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:#FBFDFF;margin-bottom:12px">
+      <span style="flex:1;font-size:11.5px;color:var(--ink-2)">当前可用积分</span>
+      <b style="font-family:var(--serif);font-size:19px;color:var(--brand)">${num(myPoints())}</b>
+      <button class="btn btn--ghost btn--sm" data-action="open-points">积分中心</button>
+    </div>
+    ${list.length ? list.map((x) => `<div class="prow" style="padding:10px 0;border-bottom:1px solid var(--line-2)">
+      <span style="flex:none">${recThumb(x)}</span>
+      <span class="prow__main"><b>${esc(x.title)}</b><small>${isBoosted(x) ? `推流中 · 剩余 ${boostLeft(x)}` : (kind === 'errand' ? `悬赏 ¥${num(x.reward)}` : `售价 ¥${num(x.price)}`)}</small></span>
+      <button class="btn btn--primary btn--sm" data-action="boost-target" data-kind="${kind}" data-id="${x.id}">${isBoosted(x) ? '续推' : '推流'}</button>
+    </div>`).join('') : `<div class="empty" style="padding:26px 10px"><div class="em-ico">🔥</div><b>还没有可推流的内容</b><p>先发布一条${kind === 'errand' ? '跑腿需求' : '闲置'}吧</p></div>`}
+    <p class="sheet-note">推流会把内容置顶到列表最前，并显示「推流中」标识；同一内容续推会顺延时长。</p>`;
+  openSheet({
+    title: kind === 'errand' ? '给跑腿推流' : '给闲置推流',
+    body,
+    foot: `<button class="btn btn--primary" data-action="close-sheet">完成</button>`
+  });
+}
+
+function openBoostSheet(kind, id) {
+  const list = kind === 'errand' ? db.errands : db.items;
+  const x = list.find((v) => v.id === id);
+  if (!x) return;
+  let pick = 0;
+  const body = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      ${recThumb(x, '38px')}
+      <div style="flex:1;min-width:0">
+        <b style="display:block;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.title)}</b>
+        <small style="font-family:var(--mono);font-size:8.5px;color:var(--ink-3)">${isBoosted(x) ? `推流中 · 剩余 ${boostLeft(x)}` : '当前未推流'}</small>
+      </div>
+    </div>
+    <div class="tier-list" id="boostTiers">
+      ${BOOST_TIERS.map((t, i) => `<button class="tier ${i === 0 ? 'is-active' : ''}" data-tier="${i}" type="button">
+        <span class="t-pts">${t.pts}</span>
+        <span class="t-main"><b>${t.label}曝光</b><small>${t.desc}</small></span>
+        <span class="t-ck">${icon('check', 11)}</span>
+      </button>`).join('')}
+    </div>
+    <p class="hint" id="boostCost"></p>`;
+  const sheet = openSheet({
+    title: '积分推流',
+    body,
+    foot: `<button class="btn btn--ghost" data-action="close-sheet">取消</button><button class="btn btn--primary" id="boostOk">确认推流</button>`
+  });
+  const cost = sheet.querySelector('#boostCost');
+  const upd = () => {
+    const t = BOOST_TIERS[pick];
+    const rest = myPoints() - t.pts;
+    cost.textContent = rest >= 0
+      ? `将消耗 ${t.pts} 积分，剩余 ${rest} 积分 · ${t.label}内置顶展示`
+      : `还差 ${-rest} 积分，完成交易或发帖可以继续赚积分`;
+  };
+  upd();
+  sheet.querySelector('#boostTiers').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tier]');
+    if (!b) return;
+    pick = Number(b.dataset.tier);
+    $$('#boostTiers .tier').forEach((n, i) => n.classList.toggle('is-active', i === pick));
+    upd();
+  });
+  sheet.querySelector('#boostOk').addEventListener('click', () => {
+    const t = BOOST_TIERS[pick];
+    if (myPoints() < t.pts) { toast('积分不足，先去做几个任务吧'); return; }
+    addPoints(-t.pts, `推流 ${t.label}`, true);
+    const base = isBoosted(x) ? x.boostUntil : Date.now();
+    x.boostUntil = base + t.h * 3600e3;
+    saveDB();
+    const hadDetail = !!detailView;
+    const refreshGrid = () => {
+      if ($('#errandGrid')) refreshErrands();
+      else if ($('#marketGrid')) refreshMarket();
+      syncPointsPill();
+    };
+    closeSheet();
+    if (hadDetail) {
+      setTimeout(() => { closeDetail(); setTimeout(refreshGrid, 480); }, 300);
+    } else {
+      refreshGrid();
+    }
+    toast(`推流成功，${t.label}内置顶展示`);
   });
 }
 
@@ -2648,7 +3756,7 @@ function wallHTML() {
     <span style="font-size:11.5px;color:var(--ink-3)" id="wCount"></span>
     <span style="font-size:10.5px;color:var(--ink-3)">点开卡片查看详情与评论</span>
   </div>
-  <div class="wall-wrap" id="wallGrid"></div>
+  <div class="wall-wrap card-flow" id="wallGrid"></div>
   <div class="foot-note">友善发言 · 匿名也会留下温柔的痕迹</div>`;
 }
 function wallList() {
@@ -2668,7 +3776,7 @@ function refreshWall() {
     return;
   }
   grid.innerHTML = list.map((p, i) => `
-    <div class="w-card" role="button" tabindex="0" data-action="open-post" data-id="${p.id}">
+    <div class="w-card" role="button" tabindex="0" data-action="open-post" data-id="${p.id}" style="--i:${Math.min(i, 8)}">
       <div class="w-cover" style="background:${ART_BG[p.art] || '#F2E8D5'};aspect-ratio:${W_ASPECT[i % 4]}">
         <span class="w-no">${String(i + 1).padStart(2, '0')}</span>
         ${art(p.art)}
@@ -2796,10 +3904,15 @@ function bindDetail(el, p) {
   el.querySelector('#cmtInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
 
   // 下拉返回（与卡片位置联动）
+  bindPullClose(el);
+}
+
+/* 详情层下拉关闭：校园墙与附近好店共用 */
+function bindPullClose(el) {
   let sy = 0, dy = 0, dragging = false;
   el.addEventListener('touchstart', (e) => {
     if (detailView && detailView.closing) return;
-    if (e.target.closest('.detail__bar, button, input')) return;
+    if (e.target.closest('.detail__bar, button, input, a, label')) return;
     if (el.scrollTop > 0) return;
     sy = e.touches[0].clientY;
     dy = 0;
@@ -2827,41 +3940,48 @@ function bindDetail(el, p) {
   });
 }
 
-function openPost(id, origin) {
-  if (detailView) return;
-  const p = db.posts.find((x) => x.id === id);
-  if (!p) return;
-
-  const originCover = origin && origin.querySelector ? origin.querySelector('.w-cover, .cover') : null;
-  const from = originCover ? originCover.getBoundingClientRect() : null;
-
+/* 详情层通用入口：四类卡片（校园墙 / 闲置 / 跑腿 / 好店）共用同一套开合转场 */
+function openDetailLayer(opts) {
+  if (detailView) return null;
   const el = document.createElement('div');
   el.className = 'detail';
-  el.dataset.id = p.id;
+  el.dataset.id = opts.id;
   el.setAttribute('role', 'dialog');
   el.setAttribute('aria-modal', 'true');
-  el.innerHTML = postDetailHTML(p);
+  el.innerHTML = opts.html;
   document.body.appendChild(el);
   document.body.classList.add('detail-lock');
-  detailView = { el, p, closing: false, hero: null };
-  bindDetail(el, p);
+  detailView = {
+    el,
+    kind: opts.kind,
+    id: opts.id,
+    bg: opts.bg,
+    heroHTML: opts.heroHTML,
+    closing: false,
+    hero: null
+  };
+  if (opts.bind) opts.bind(el);
+  startDetail(el, { from: opts.from, bg: opts.bg, heroHTML: opts.heroHTML });
+  return el;
+}
 
-  const cover = el.querySelector('.detail__cover');
-  const to = cover.getBoundingClientRect();
+/* 详情层通用入场：卡片封面 hero-fly → 详情封面，与校园墙一致 */
+function startDetail(el, opts) {
   requestAnimationFrame(() => el.classList.add('is-open'));
-
-  if (reduceMotion() || !from || from.width < 4) {
+  const from = opts.from;
+  const cover = el.querySelector('.detail__cover');
+  if (reduceMotion() || !from || from.width < 4 || !cover) {
     el.classList.add('is-ready');
     return;
   }
-
+  const to = cover.getBoundingClientRect();
   cover.style.visibility = 'hidden';
   const hero = document.createElement('div');
   hero.className = 'hero-fly';
-  hero.style.cssText = `left:${from.left}px;top:${from.top}px;width:${from.width}px;height:${from.height}px;background:${ART_BG[p.art] || '#E8F2FC'};border-radius:10px`;
-  hero.innerHTML = art(p.art);
+  hero.style.cssText = `left:${from.left}px;top:${from.top}px;width:${from.width}px;height:${from.height}px;background:${opts.bg};border-radius:10px`;
+  hero.innerHTML = opts.heroHTML;
   document.body.appendChild(hero);
-  detailView.hero = hero;
+  if (detailView) detailView.hero = hero;
 
   const anim = hero.animate([
     { left: `${from.left}px`, top: `${from.top}px`, width: `${from.width}px`, height: `${from.height}px`, borderRadius: '10px' },
@@ -2880,6 +4000,22 @@ function openPost(id, origin) {
   };
 }
 
+function openPost(id, origin) {
+  if (detailView) return;
+  const p = db.posts.find((x) => x.id === id);
+  if (!p) return;
+  const originCover = origin && origin.querySelector ? origin.querySelector('.w-cover, .cover') : null;
+  openDetailLayer({
+    kind: 'post',
+    id: p.id,
+    html: postDetailHTML(p),
+    bg: ART_BG[p.art] || '#E8F2FC',
+    heroHTML: art(p.art),
+    from: originCover ? originCover.getBoundingClientRect() : null,
+    bind: (el) => bindDetail(el, p)
+  });
+}
+
 function closeDetail() {
   const dv = detailView;
   if (!dv || dv.closing) return;
@@ -2891,12 +4027,13 @@ function closeDetail() {
     dv.hero = null;
   }
   const cover = el.querySelector('.detail__cover');
-  cover.style.visibility = 'visible';
+  if (cover) cover.style.visibility = 'visible';
 
-  const card = document.querySelector(`[data-action="open-post"][data-id="${dv.p.id}"]`);
-  const targetEl = card ? card.querySelector('.w-cover, .cover') : null;
+  const ACTION_OF = { post: 'open-post', shop: 'open-shop', item: 'open-item', errand: 'open-errand' };
+  const card = document.querySelector(`[data-action="${ACTION_OF[dv.kind] || 'open-post'}"][data-id="${dv.id}"]`);
+  const targetEl = card ? card.querySelector('.m-cover, .w-cover, .cover') : null;
   const to = targetEl ? targetEl.getBoundingClientRect() : null;
-  const from = cover.getBoundingClientRect();
+  const from = cover ? cover.getBoundingClientRect() : null;
   const scrolled = el.scrollTop > 24;
 
   el.classList.remove('is-ready', 'is-open');
@@ -2912,7 +4049,7 @@ function closeDetail() {
     detailView = null;
   };
 
-  if (reduceMotion() || !to || scrolled || from.width < 4) {
+  if (reduceMotion() || !to || !from || scrolled || from.width < 4) {
     setTimeout(done, 230);
     return;
   }
@@ -2920,8 +4057,8 @@ function closeDetail() {
   cover.style.visibility = 'hidden';
   const hero = document.createElement('div');
   hero.className = 'hero-fly';
-  hero.style.cssText = `left:${from.left}px;top:${from.top}px;width:${from.width}px;height:${from.height}px;background:${ART_BG[dv.p.art] || '#E8F2FC'};border-radius:0`;
-  hero.innerHTML = art(dv.p.art);
+  hero.style.cssText = `left:${from.left}px;top:${from.top}px;width:${from.width}px;height:${from.height}px;background:${dv.bg};border-radius:0`;
+  hero.innerHTML = dv.heroHTML;
   document.body.appendChild(hero);
 
   const anim = hero.animate([
@@ -2984,10 +4121,11 @@ function openPublishPost() {
       likes: 0, collects: 0, time: '刚刚', mine: true, owner: db.session, comments: []
     });
     state.wtopic = '全部';
+    addPoints(5, '发布校园墙动态', true);
     saveDB(); closeSheet();
     if (state.page !== 'wall') { state.tab = 'services'; state.page = 'wall'; }
     renderPage();
-    toast('发布成功，去校园墙看看吧');
+    toast('发布成功，积分 +5');
   });
 }
 
@@ -3016,14 +4154,19 @@ const PHONE_DATA = [
   { n: '心理咨询中心', t: '020-8888 0177', d: '预约制，免费' },
   { n: '宿管中心', t: '020-8888 0190', d: '宿舍报修 / 晚归登记' }
 ];
-const CAL_DATA = [
-  { d: '9 月 7 日', t: '秋季学期开学', tag: '已过' },
-  { d: '10 月 1–7 日', t: '国庆假期', tag: '已过' },
-  { d: '11 月 2–13 日', t: '期中考试周', tag: '重要' },
-  { d: '11 月 28 日', t: '校园AI大赛决赛', tag: '活动' },
-  { d: '12 月 12 日', t: '大学英语四六级考试', tag: '重要' },
-  { d: '1 月 4–15 日', t: '期末考试周', tag: '重要' },
-  { d: '1 月 18 日', t: '寒假开始', tag: '假期' }
+/* 校历事件：ISO 日期区间，start === end 表示单日活动 */
+const CAL_EVENTS = [
+  { start: '2026-09-07', end: '2026-09-07', title: '秋季学期开学 · 第一天上课', short: '开学', tag: '学期', tone: 'green', note: 'A/B 楼 8:00 开始第一节课，记得提前 10 分钟到教室。' },
+  { start: '2026-09-14', end: '2026-09-20', title: '社团招新周 · 百团大战', short: '招新', tag: '活动', tone: 'amber', note: '每天 11:30–13:30 在中心广场摆摊，吉他社、摄影社、骑行社都在。' },
+  { start: '2026-09-25', end: '2026-09-27', title: '中秋节放假调休', short: '中秋', tag: '假期', tone: 'green', note: '9 月 25–27 日放假，25 日（周五）课程调至 9 月 20 日。' },
+  { start: '2026-10-01', end: '2026-10-07', title: '国庆假期 · 图书馆正常开放', short: '国庆', tag: '假期', tone: 'green', note: '10 月 1–7 日放假，图书馆 9:00–17:00 开放，食堂部分窗口轮休。' },
+  { start: '2026-10-17', end: '2026-10-18', title: '校园秋季运动会', short: '运动会', tag: '活动', tone: 'amber', note: '东区田径场，17 日上午 8:30 开幕式，当天上午课程暂停。' },
+  { start: '2026-11-02', end: '2026-11-13', title: '期中考试周', short: '期中', tag: '考试', tone: 'red', note: '按学院分批考试，考场与座位号提前三天在教务系统公布。' },
+  { start: '2026-11-28', end: '2026-11-28', title: '校园 AI 智能体创新应用大赛决赛', short: 'AI 决赛', tag: '活动', tone: 'amber', note: '上午 9:00 起在众创空间路演厅，观众席对全校开放。' },
+  { start: '2026-12-12', end: '2026-12-12', title: '大学英语四六级考试', short: '四六级', tag: '考试', tone: 'red', note: '上午四级 9:00 开考，下午六级 15:00 开考，需带准考证与身份证。' },
+  { start: '2026-12-31', end: '2026-12-31', title: '元旦晚会 · 跨年市集', short: '元旦', tag: '活动', tone: 'amber', note: '19:00 大学生活动中心，凭校园卡入场，市集 17:00 开始。' },
+  { start: '2027-01-04', end: '2027-01-15', title: '期末考试周', short: '期末', tag: '考试', tone: 'red', note: '考试安排以教务系统为准，图书馆四楼延长开放至 23:00。' },
+  { start: '2027-01-18', end: '2027-01-18', title: '寒假开始', short: '寒假', tag: '假期', tone: 'green', note: '宿舍 1 月 20 日 12:00 前清空，返校时间另行通知。' }
 ];
 
 function openTool(name) {
@@ -3092,32 +4235,150 @@ function openTool(name) {
     });
   }
 
-  if (name === 'calendar') {
-    openSheet({
-      title: '2026 秋季学期校历',
-      body: `
-        <div style="position:relative;padding-left:18px">
-          <div style="position:absolute;left:4px;top:6px;bottom:8px;width:2px;background:var(--line)"></div>
-          ${CAL_DATA.map((c) => `
-            <div style="position:relative;padding:0 0 16px">
-              <span style="position:absolute;left:-18px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px #fff"></span>
-              <div style="display:flex;align-items:center;gap:8px">
-                <b style="font-size:12.5px">${esc(c.d)}</b>
-                <span class="tag" style="font-size:9.5px;padding:2px 7px">${esc(c.tag)}</span>
-              </div>
-              <p style="font-size:12px;color:var(--ink-2);margin-top:3px">${esc(c.t)}</p>
-            </div>`).join('')}
-        </div>
-        <p class="sheet-note">具体安排以教务处通知为准。</p>`,
-      foot: `<button class="btn btn--primary" data-action="close-sheet">知道了</button>`
-    });
-  }
+  if (name === 'calendar') openCalendar();
+}
+
+/* 校历：月历网格 + 日期格内事项 + 选中日详情，日期与安排一一对应 */
+const pad2 = (n) => String(n).padStart(2, '0');
+const dateKey = (d) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+const keyToDate = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+function eventsOn(key) { return CAL_EVENTS.filter((e) => key >= e.start && key <= e.end); }
+function eventsInMonth(y, m) {
+  const first = `${y}-${pad2(m + 1)}-01`;
+  const last = `${y}-${pad2(m + 1)}-${pad2(new Date(y, m + 1, 0).getDate())}`;
+  return CAL_EVENTS.filter((e) => e.start <= last && e.end >= first);
+}
+function calRangeLabel(e) {
+  const s = `${Number(e.start.slice(5, 7))}/${Number(e.start.slice(8, 10))}`;
+  if (e.start === e.end) return s;
+  return `${s}–${Number(e.end.slice(5, 7))}/${Number(e.end.slice(8, 10))}`;
+}
+function openCalendar() {
+  const today = new Date();
+  const todayKey = dateKey(today);
+  const termStart = new Date(2026, 8, 7);
+  const termEnd = new Date(2027, 1, 1);
+  const inTerm = today >= termStart && today <= termEnd;
+  let ym = inTerm ? new Date(today.getFullYear(), today.getMonth(), 1) : new Date(2026, 10, 1);
+  let sel = inTerm ? todayKey : '2026-11-02';
+
+  const sheet = openSheet({
+    title: '校历安排',
+    cls: 'sheet--cal',
+    body: `<div id="calBody"></div>
+      <p class="sheet-note">点击任意日期查看当天安排；灰色日期属于相邻月份，可切换月份浏览。</p>`,
+    foot: `<button class="btn btn--ghost" data-action="cal-today">回到本月</button>
+           <button class="btn btn--primary" data-action="close-sheet">知道了</button>`
+  });
+
+  const draw = () => {
+    const y = ym.getFullYear();
+    const m = ym.getMonth();
+    const firstDay = new Date(y, m, 1);
+    const offset = (firstDay.getDay() + 6) % 7; // 周一为第一列
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    const prevMonthDays = new Date(y, m, 0).getDate();
+    const cells = [];
+    for (let i = offset - 1; i >= 0; i--) cells.push({ d: new Date(y, m - 1, prevMonthDays - i), out: true });
+    for (let i = 1; i <= daysInMonth; i++) cells.push({ d: new Date(y, m, i), out: false });
+    while (cells.length % 7) cells.push({ d: new Date(y, m + 1, cells.length - offset - daysInMonth + 1), out: true });
+
+    const termWeek = clamp(Math.round((mondayOf(new Date(y, m, 1)) - mondayOf(termStart)) / 604800000) + 1, 1, 20);
+    const selEvents = eventsOn(sel);
+    const monthEvents = eventsInMonth(y, m);
+
+    const head = `<div class="cal-head">
+      <button class="cal-nav" data-cal-nav="-1" aria-label="上个月">${icon('back', 14)}</button>
+      <div class="cal-ym"><b>${y} 年 ${m + 1} 月</b><small>FALL TERM · 第 ${termWeek} 教学周</small></div>
+      <button class="cal-nav" data-cal-nav="1" aria-label="下个月">${icon('chev', 14)}</button>
+    </div>`;
+
+    const grid = `<div class="cal-grid">
+      ${['一', '二', '三', '四', '五', '六', '日'].map((w) => `<div class="cal-dow">周${w}</div>`).join('')}
+      ${cells.map(({ d, out }) => {
+        const key = dateKey(d);
+        const evs = out ? [] : eventsOn(key);
+        const isToday = !out && key === todayKey;
+        const wk = d.getDay() === 0 || d.getDay() === 6;
+        return `<button class="cal-cell${out ? ' is-out' : ''}${isToday ? ' is-today' : ''}${key === sel ? ' is-sel' : ''}${wk ? ' is-weekend' : ''}" data-cal="${key}"${out ? ' tabindex="-1"' : ''} aria-label="${key} 安排">
+          <span class="cal-d">${d.getDate()}</span>
+          ${evs.slice(0, 2).map((e) => `<span class="cal-ev cal-ev--${e.tone}">${esc(e.short)}</span>`).join('')}
+          ${evs.length > 2 ? `<span class="cal-ev cal-ev--more">+${evs.length - 2}</span>` : ''}
+        </button>`;
+      }).join('')}
+    </div>`;
+
+    const legend = `<div class="cal-legend">
+      <span><i style="background:#E7F3EC"></i>假期 / 学期</span>
+      <span><i style="background:#FCEBE7"></i>考试</span>
+      <span><i style="background:#FFF4DF"></i>活动</span>
+      <span><i style="background:#EAF2FC"></i>其他</span>
+    </div>`;
+
+    const dayPanel = `<div class="cal-day">
+      <span class="cd-k">DAY · ${sel.replace(/-/g, ' / ')} 星期${WD[keyToDate(sel).getDay()]}</span>
+      ${selEvents.length
+        ? selEvents.map((e) => `<b>${esc(e.title)}</b><p>${esc(e.note)}</p>`).join('')
+        : '<b>这天没有特殊安排</b><p>按正常课表上课，可以在首页查看当天的课程与时间。</p>'}
+    </div>`;
+
+    const list = `<div class="cal-list">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <span style="font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--ink-3)">MONTH · 本月安排</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--ink-3)">共 ${monthEvents.length} 项</span>
+      </div>
+      ${monthEvents.length ? monthEvents.map((e) => {
+        const hit = sel >= e.start && sel <= e.end;
+        return `<div class="cal-li${hit ? ' is-sel' : ''}">
+          <span class="cl-date">${calRangeLabel(e)}</span>
+          <div class="cl-main"><b>${esc(e.title)}</b><small>${esc(e.note)}</small></div>
+          <span class="tag" style="flex:none;font-size:9px;padding:2px 6px">${esc(e.tag)}</span>
+        </div>`;
+      }).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:10px 0">本月暂无安排，切换月份看看</p>'}
+    </div>`;
+
+    const box = sheet.querySelector('#calBody');
+    if (box) box.innerHTML = head + grid + legend + dayPanel + list;
+  };
+
+  const bodyEl = sheet.querySelector('.sheet__body');
+  bodyEl.addEventListener('click', (e) => {
+    const nav = e.target.closest('[data-cal-nav]');
+    if (nav) {
+      ym = new Date(ym.getFullYear(), ym.getMonth() + Number(nav.dataset.calNav), 1);
+      const ymKey = `${ym.getFullYear()}-${pad2(ym.getMonth() + 1)}`;
+      if (sel.slice(0, 7) !== ymKey) {
+        const firstEv = CAL_EVENTS.find((x) => x.start.slice(0, 7) === ymKey);
+        sel = firstEv ? firstEv.start : `${ymKey}-01`;
+      }
+      draw();
+      bodyEl.scrollTop = 0;
+      return;
+    }
+    const cell = e.target.closest('[data-cal]');
+    if (cell) {
+      sel = cell.dataset.cal;
+      draw();
+    }
+  });
+  sheet.querySelector('[data-action="cal-today"]').addEventListener('click', () => {
+    const now = new Date();
+    const ok = now >= termStart && now <= termEnd;
+    ym = ok ? new Date(now.getFullYear(), now.getMonth(), 1) : new Date(2026, 10, 1);
+    sel = ok ? dateKey(now) : '2026-11-02';
+    draw();
+    bodyEl.scrollTop = 0;
+    toast('已定位到当前月份');
+  });
+  draw();
 }
 /* ================= 14. 个人中心 ================= */
 function profileHTML() {
   const u = me();
   const myItems = db.items.filter(isMine);
   const myPosts = db.posts.filter(isMine);
+  const myErrands = db.errands.filter(isMine);
+  const myTakes = db.errands.filter((x) => x.taker && x.taker === u.nick && !isMine(x));
   const weekCount = db.courses.reduce((n, c) => n + c.len, 0);
   return `
   <div class="profile-wrap">
@@ -3132,8 +4393,8 @@ function profileHTML() {
     </div>
     <p class="profile-bio">${esc(u.bio || '这个人很懒，还没有写简介')}</p>
     <div class="profile-stats">
-      <div class="pstat"><b>${myItems.length + myPosts.length}</b><span>我的发布</span></div>
-      <div class="pstat"><b>${db.wants.length}</b><span>想要</span></div>
+      <div class="pstat"><b>${myItems.length + myPosts.length + myErrands.length}</b><span>我的发布</span></div>
+      <div class="pstat"><b>${num(u.points || 0)}</b><span>积分</span></div>
       <div class="pstat"><b>${db.collects.length}</b><span>收藏</span></div>
     </div>
   </div>
@@ -3148,9 +4409,19 @@ function profileHTML() {
   </div>
 
   <div class="profile-section">
+    <button class="prow" data-action="open-points">
+      <span class="quick-ico q-amber">${icon('coin', 17)}</span>
+      <span class="prow__main"><b>积分账户</b><small>${num(u.points || 0)} 积分 · 可兑换推流曝光</small></span>
+      ${icon('chev', 16, 'class="chev"')}
+    </button>
     <button class="prow" data-action="my-posts">
       <span class="quick-ico q-amber">${icon('bag', 17)}</span>
-      <span class="prow__main"><b>我的发布</b><small>闲置 ${myItems.length} 件 · 动态 ${myPosts.length} 条</small></span>
+      <span class="prow__main"><b>我的发布</b><small>闲置 ${myItems.length} 件 · 跑腿 ${myErrands.length} 单 · 动态 ${myPosts.length} 条</small></span>
+      ${icon('chev', 16, 'class="chev"')}
+    </button>
+    <button class="prow" data-action="my-errands">
+      <span class="quick-ico" style="background:#FBF0DC;color:#8A5A12">${icon('box', 17)}</span>
+      <span class="prow__main"><b>我的跑腿</b><small>发布 ${myErrands.length} 单 · 我接的 ${myTakes.length} 单</small></span>
       ${icon('chev', 16, 'class="chev"')}
     </button>
     <button class="prow" data-action="favorites">
@@ -3221,22 +4492,51 @@ function openEditProfile() {
 function openMyPosts() {
   const items = db.items.filter(isMine);
   const posts = db.posts.filter(isMine);
+  const errands = db.errands.filter(isMine);
   const body = `
-    <div class="section__head" style="margin-bottom:8px"><h2 style="font-size:14px">闲置好物<span>${items.length}</span></h2></div>
+    <div class="section__head" style="margin-bottom:8px"><h2 style="font-size:14px">跑腿需求<span>${errands.length}</span></h2></div>
+    ${errands.length ? errands.map((x) => `
+      <div class="prow" role="button" tabindex="0" data-action="open-errand" data-id="${x.id}" style="padding:10px 0">
+        ${recThumb(x, '40px')}
+        <span class="prow__main"><b>${esc(x.title)}</b><small>悬赏 ¥${num(x.reward)} · ${E_STATUS[x.status] || '待接单'}${isBoosted(x) ? ` · 推流剩余 ${boostLeft(x)}` : ''}</small></span>
+        ${icon('chev', 15, 'class="chev"')}
+      </div>`).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">还没有发布过跑腿需求</p>'}
+    <div class="section__head" style="margin:18px 0 8px"><h2 style="font-size:14px">闲置好物<span>${items.length}</span></h2></div>
     ${items.length ? items.map((i) => `
       <div class="prow" role="button" tabindex="0" data-action="open-item" data-id="${i.id}" style="padding:10px 0">
-        <span style="width:44px;height:44px;border-radius:12px;background:${ART_BG[i.art]};display:grid;place-items:center;flex:none;overflow:hidden">${art(i.art, '42px')}</span>
-        <span class="prow__main"><b>${esc(i.title)}</b><small>¥${num(i.price)} · ${i.wants} 人想要</small></span>
+        ${recThumb(i, '40px')}
+        <span class="prow__main"><b>${esc(i.title)}</b><small>¥${num(i.price)} · ${i.wants} 人想要${isBoosted(i) ? ` · 推流剩余 ${boostLeft(i)}` : ''}</small></span>
         ${icon('chev', 15, 'class="chev"')}
       </div>`).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">还没有发布过闲置</p>'}
     <div class="section__head" style="margin:18px 0 8px"><h2 style="font-size:14px">校园动态<span>${posts.length}</span></h2></div>
     ${posts.length ? posts.map((p) => `
       <div class="prow" role="button" tabindex="0" data-action="open-post" data-id="${p.id}" style="padding:10px 0">
-        <span style="width:44px;height:44px;border-radius:12px;background:${ART_BG[p.art]};display:grid;place-items:center;flex:none;overflow:hidden">${art(p.art, '42px')}</span>
+        <span style="width:44px;height:44px;border-radius:7px;background:${ART_BG[p.art]};display:grid;place-items:center;flex:none;overflow:hidden">${art(p.art, '40px')}</span>
         <span class="prow__main"><b>${esc(p.title)}</b><small>#${esc(p.topic)} · ${p.likes} 赞 · ${p.comments.length} 评论</small></span>
         ${icon('chev', 15, 'class="chev"')}
       </div>`).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">还没有发过动态，去校园墙说点什么吧</p>'}`;
   openSheet({ title: '我的发布', body, foot: `<button class="btn btn--primary" data-action="close-sheet">关闭</button>` });
+}
+
+function openMyErrands() {
+  const mine = db.errands.filter(isMine);
+  const takes = db.errands.filter((x) => x.taker && x.taker === me().nick && !isMine(x));
+  const row = (x) => `<div class="prow" role="button" tabindex="0" data-action="open-errand" data-id="${x.id}" style="padding:10px 0">
+      ${recThumb(x, '40px')}
+      <span class="prow__main"><b>${esc(x.title)}</b><small>${esc(x.from)} → ${esc(x.to)} · ¥${num(x.reward)} · ${E_STATUS[x.status] || '待接单'}</small></span>
+      ${icon('chev', 15, 'class="chev"')}
+    </div>`;
+  const body = `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:#FBFDFF;margin-bottom:14px">
+      <span style="flex:1;font-size:11.5px;color:var(--ink-2)">我的积分</span>
+      <b style="font-family:var(--serif);font-size:18px;color:var(--brand)">${num(myPoints())}</b>
+      <button class="btn btn--ghost btn--sm" data-action="open-points">积分中心</button>
+    </div>
+    <div class="section__head" style="margin-bottom:8px"><h2 style="font-size:14px">我发布的<span>${mine.length}</span></h2></div>
+    ${mine.length ? mine.map(row).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">还没有发布过跑腿需求</p>'}
+    <div class="section__head" style="margin:18px 0 8px"><h2 style="font-size:14px">我接的单<span>${takes.length}</span></h2></div>
+    ${takes.length ? takes.map(row).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">去校园跑腿看看有没有顺路的单</p>'}`;
+  openSheet({ title: '我的跑腿', body, foot: `<button class="btn btn--primary" data-action="close-sheet">关闭</button>` });
 }
 
 function openFavorites() {
@@ -3246,7 +4546,7 @@ function openFavorites() {
     <div class="section__head" style="margin-bottom:8px"><h2 style="font-size:14px">我想要的<span>${items.length}</span></h2></div>
     ${items.length ? items.map((i) => `
       <div class="prow" role="button" tabindex="0" data-action="open-item" data-id="${i.id}" style="padding:10px 0">
-        <span style="width:44px;height:44px;border-radius:12px;background:${ART_BG[i.art]};display:grid;place-items:center;flex:none;overflow:hidden">${art(i.art, '42px')}</span>
+        ${recThumb(i, '40px')}
         <span class="prow__main"><b>${esc(i.title)}</b><small>¥${num(i.price)} · ${esc(i.seller)}</small></span>
         ${icon('chev', 15, 'class="chev"')}
       </div>`).join('') : '<p style="font-size:12px;color:var(--ink-3);padding:8px 0 14px">看到喜欢的好物，点「我想要」就会出现在这里</p>'}
@@ -3271,9 +4571,9 @@ function openAbout() {
         <b style="font-size:17px">智慧校园4.0</b>
         <p style="font-size:11.5px;color:var(--ink-3);margin-top:4px">v4.0 · 智慧校园服务原型</p>
       </div>
-      <p style="font-size:13px;line-height:1.85;color:var(--ink-2)">把课表、闲置流转和校园动态放在一个入口里：课表支持手动添加与文字智能识别，跳蚤市场面向校内面交，校园墙用瀑布流记录身边的小事。</p>
+      <p style="font-size:13px;line-height:1.85;color:var(--ink-2)">把课表、闲置流转、跑腿互助和校园周边放在一个入口里：课表支持手动添加与文字智能识别，跳蚤市场与跑腿都支持实拍图和积分推流，校园墙用瀑布流记录身边的小事，附近好店让校外商家也能进来。</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-        <span class="tag">纯前端实现</span><span class="tag">数据存于本机</span><span class="tag">多端适配</span><span class="tag">AI 助手</span>
+        <span class="tag">纯前端实现</span><span class="tag">数据存于本机</span><span class="tag">积分推流</span><span class="tag">多端适配</span><span class="tag">AI 助手</span>
       </div>
       <p class="sheet-note" style="margin-top:16px">本作品为校园 AI 智能体创新应用大赛演示原型，所有人物、商品与动态均为虚构示例，不涉及真实个人信息。</p>`,
     foot: `<button class="btn btn--primary" data-action="close-sheet">好的</button>`
@@ -3308,6 +4608,18 @@ function aiAnswer(raw) {
   const tmr = addDays(now, 1);
   const tmrIdx = tmr.getDay() === 0 ? 7 : tmr.getDay();
 
+  if (/跑腿|代取|代买|代排队|接单|帮取|带饭/.test(t)) {
+    const open = db.errands.filter((x) => x.status === 'open');
+    const top = open.slice().sort((a, b) => b.reward - a.reward)[0];
+    return `校园跑腿现在有 <b>${open.length}</b> 单待接${top ? `，悬赏最高的是「${esc(top.title)}」¥${num(top.reward)}` : ''}。<br>· 发布一单需求 +10 积分<br>· 接单并送达 +15 积分<br>· 完成交易再 +20 积分<br>在「校园服务 → 校园跑腿」可以发布或接单，急单还能用积分推流。`;
+  }
+  if (/积分|推流|曝光|赚分/.test(t)) {
+    return `你现在有 <b>${num(myPoints())}</b> 积分。获取方式：<br>· 新人注册 +100 · 发帖 +5 · 发布闲置或跑腿 +10<br>· 完成交易 +20 · 完成跑腿 +15 · 邀请同学 +30<br>推流档位：${BOOST_TIERS.map((b) => `${b.pts} 积分 / ${b.label}`).join('、')}。推流后内容会置顶展示，并带「推流中」标识。`;
+  }
+  if (/好店|店铺|商家|入驻|打印店|理发|咖啡店|便利店/.test(t)) {
+    const list = db.shops.slice(0, 3);
+    return `附近有 <b>${db.shops.length}</b> 家店可以逛，这几家同学去得最多：<br>${list.map((s) => `· ${esc(s.name)} — ${esc(s.addr)} · ${esc(s.hours)}`).join('<br>')}<br>点开卡片能看到店铺简介、促销活动和最新动态，商家也可以自助入驻。`;
+  }
   if (/课表|有课|上课|几节|明天|今天|下周/.test(t)) {
     let target = tmrIdx;
     let label = `明天（周${WD[tmrIdx]}）`;
@@ -3343,7 +4655,7 @@ function aiAnswer(raw) {
     return `我是小轻，智慧校园4.0的 AI 助手 我可以帮你查课表、找二手好物、推荐自习教室，也能告诉你怎么发校园墙。试试点下面的问题？`;
   }
   if (/谢谢|感谢/.test(t)) return `不客气，随时叫我。今天也要好好吃饭、好好睡觉`;
-  return `这个问题我还在学习中。目前我最擅长这些：<br>· 查今天 / 明天的课表<br>· 在跳蚤市场找教材、耳机、自行车<br>· 推荐空教室和自习地点<br>· 教你怎么发校园墙<br>也可以直接问「二食堂有什么好吃的」。`;
+  return `这个问题我还在学习中。目前我最擅长这些：<br>· 查今天 / 明天的课表<br>· 在跳蚤市场找教材、耳机、自行车<br>· 看看有哪些跑腿单，怎么用积分推流<br>· 推荐附近好店与自习教室<br>也可以直接问「二食堂有什么好吃的」。`;
 }
 function pushAIMsg(role, html) {
   aiHistory.push({ role, html });
@@ -3384,7 +4696,7 @@ function openAI() {
         ${aiHistory.map((m) => `<div class="ai-msg ai-msg--${m.role === 'me' ? 'me' : 'bot'}">${m.role === 'bot' ? '<span class="ai-mini-ava">轻</span>' : ''}<div class="bub">${m.html}</div></div>`).join('')}
       </div>
       <div class="ai-chips">
-        ${['明天有课吗', '推荐二手教材', '现在去哪自习', '怎么发校园墙'].map((c) => `<button class="ai-chip" data-aiq="${c}">${c}</button>`).join('')}
+        ${['明天有课吗', '推荐二手教材', '积分怎么推流', '有什么跑腿单', '附近有什么好店'].map((c) => `<button class="ai-chip" data-aiq="${c}">${c}</button>`).join('')}
       </div>
       <div class="ai-input">
         <input id="aiInput" placeholder="问问小轻：明天几节课？" maxlength="60" />
@@ -3419,6 +4731,23 @@ document.addEventListener('click', (e) => {
       state.tab = 'services'; state.page = 'market'; renderPage(true); break;
     case 'open-wall':
       state.tab = 'services'; state.page = 'wall'; renderPage(true); break;
+    case 'open-errands':
+      state.tab = 'services'; state.page = 'errands'; renderPage(true); break;
+    case 'open-shops':
+      state.tab = 'services'; state.page = 'shops'; renderPage(true); break;
+    case 'open-errand': openErrand(el.dataset.id, el); break;
+    case 'open-shop': openShop(el.dataset.id, el); break;
+    case 'publish-errand': openPublishErrand(); break;
+    case 'publish-shop': openShopForm(); break;
+    case 'open-points': openPoints(); break;
+    case 'open-boost': openBoostHub(el.dataset.kind || 'item'); break;
+    case 'boost-target': openBoostSheet(el.dataset.kind || 'item', el.dataset.id); break;
+    case 'invite-friend':
+      addPoints(30, '邀请新同学', true);
+      openPoints();
+      toast('已模拟一次邀请，积分 +30');
+      break;
+    case 'my-errands': openMyErrands(); break;
     case 'go-profile': switchTab('profile'); break;
     case 'week':
       state.weekOffset += Number(el.dataset.delta);
@@ -3437,7 +4766,7 @@ document.addEventListener('click', (e) => {
       break;
     case 'edit-course': openCourseForm(el.dataset.id); break;
     case 'import': openImportSheet(); break;
-    case 'open-item': openItem(el.dataset.id); break;
+    case 'open-item': openItem(el.dataset.id, el); break;
     case 'open-post': openPost(el.dataset.id, el); break;
     case 'close-detail': closeDetail(); break;
     case 'publish-item': openPublishItem(); break;
@@ -3475,12 +4804,21 @@ document.addEventListener('click', (e) => {
   if (sort) { state.msort = sort.dataset.msort; refreshMarket(); return; }
   const topic = e.target.closest('[data-wtopic]');
   if (topic) { state.wtopic = topic.dataset.wtopic; refreshWall(); return; }
+  const ecat = e.target.closest('[data-ecat]');
+  if (ecat) { state.ecat = ecat.dataset.ecat; refreshErrands(); return; }
+  const esort = e.target.closest('[data-esort]');
+  if (esort) { state.esort = esort.dataset.esort; refreshErrands(); return; }
+  const scat = e.target.closest('[data-scat]');
+  if (scat) { state.scat = scat.dataset.scat; refreshShops(); return; }
 });
 
 document.addEventListener('input', (e) => {
   if (e.target.id === 'marketSearch') {
     state.mq = e.target.value;
     refreshMarket();
+  } else if (e.target.id === 'errandSearch') {
+    state.eq = e.target.value;
+    refreshErrands();
   }
 });
 

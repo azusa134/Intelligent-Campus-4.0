@@ -1,0 +1,14 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# 赛事资料与本地笔记（不随站点发布）
+要求/
+.workbuddy/
+
+# 临时与构建产物
+_dev/
+*.log

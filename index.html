@@ -1446,10 +1446,11 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 /* 页面背景：暖色柔光 + 顶部点阵（Aceternity dotted glow） */
 .app::before{
-  top:-160px;height:520px;
+  top:0;height:100vh;
   background:
-    radial-gradient(640px 340px at 8% -12%,rgba(192,86,59,.13),rgba(192,86,59,0) 70%),
-    radial-gradient(560px 300px at 92% -8%,rgba(95,122,99,.12),rgba(95,122,99,0) 70%);
+    radial-gradient(520px 400px at var(--gx,50%) var(--gy,22%),rgba(192,86,59,.10),rgba(192,86,59,0) 70%),
+    radial-gradient(640px 340px at 8% -8%,rgba(192,86,59,.13),rgba(192,86,59,0) 70%),
+    radial-gradient(560px 300px at 92% -6%,rgba(95,122,99,.12),rgba(95,122,99,0) 70%);
 }
 .app::after{
   content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -2239,6 +2240,228 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible,input:focus-v
 @media (prefers-reduced-motion:reduce){
   .spot::after{display:none}
 }
+
+/* —— 16.18 登录页：立方体网格 + 玻璃卡（Background Cubes Grid） —— */
+.auth{
+  background:
+    radial-gradient(1100px 700px at 50% 38%,#201914 0%,#16120F 55%,#100D0B 100%);
+  position:relative;isolation:isolate;overflow:hidden;
+}
+.auth-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.auth-bg canvas{
+  width:100%;height:100%;display:block;
+  opacity:0;transition:opacity 1.6s var(--ease-out);
+  -webkit-mask-image:radial-gradient(ellipse 84% 80% at 50% 46%,#000 0%,rgba(0,0,0,.6) 56%,transparent 86%);
+  mask-image:radial-gradient(ellipse 84% 80% at 50% 46%,#000 0%,rgba(0,0,0,.6) 56%,transparent 86%);
+}
+.auth-bg.is-ready canvas{opacity:1}
+.auth-bg::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 42%,rgba(16,13,11,0) 0%,rgba(16,13,11,.28) 58%,rgba(16,13,11,.86) 100%),
+    linear-gradient(180deg,rgba(16,13,11,.72) 0%,rgba(16,13,11,0) 26%,rgba(16,13,11,0) 70%,rgba(16,13,11,.8) 100%);
+}
+.auth-hero{
+  background:transparent;color:#F6EFE3;position:relative;z-index:2;
+}
+.auth::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(101deg,rgba(16,13,11,.95) 0%,rgba(16,13,11,.86) 26%,rgba(16,13,11,.44) 52%,rgba(16,13,11,.18) 74%,rgba(16,13,11,.34) 100%);
+}
+.auth-hero::after{background:linear-gradient(90deg,transparent,rgba(233,183,155,.55),transparent)}
+.auth-hero__grid{display:none}
+.auth-hero__glow{display:none}
+.auth-panel{
+  background:transparent;position:relative;z-index:2;
+}
+.auth-card{
+  width:min(406px,100%);
+  padding:clamp(22px,2.4vw,30px) clamp(20px,2.2vw,28px) clamp(20px,2.2vw,26px);
+  border-radius:26px;
+  background:linear-gradient(168deg,rgba(46,38,32,.78),rgba(23,19,16,.74));
+  border:1px solid rgba(233,183,155,.16);
+  box-shadow:0 48px 100px -56px rgba(0,0,0,.95),0 2px 0 rgba(255,255,255,.05) inset;
+  -webkit-backdrop-filter:blur(28px) saturate(1.25);backdrop-filter:blur(28px) saturate(1.25);
+  transform:translateZ(0);
+}
+.auth-hero h1{
+  font-family:var(--serif);font-size:clamp(40px,4.4vw,64px);line-height:1.12;letter-spacing:-.025em;
+  color:#F8F1E6;text-shadow:0 18px 60px rgba(0,0,0,.55);
+}
+.auth-hero h1 em{
+  color:transparent;
+  background:linear-gradient(100deg,#F4CBA9 0%,#E08A5F 46%,#C0563B 78%,#E9A88C 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.auth-hero h1 em::after{background:linear-gradient(90deg,rgba(224,138,95,.9),transparent)}
+.eyebrow{color:#E9A88C;letter-spacing:.32em}
+.auth-hero__sub{color:rgba(246,239,227,.62);text-shadow:0 6px 30px rgba(0,0,0,.5)}
+.auth-hero__points li{color:rgba(246,239,227,.72)}
+.auth-hero__points .dot{background:#E08A5F;box-shadow:0 0 0 3px rgba(224,138,95,.16),0 0 18px rgba(224,138,95,.5)}
+.auth-hero__badge{
+  border-color:rgba(233,183,155,.22);color:rgba(246,239,227,.55);
+  background:rgba(255,247,238,.04);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.auth-float{
+  background:linear-gradient(160deg,rgba(60,48,40,.5),rgba(28,23,19,.5));
+  border:1px solid rgba(233,183,155,.2);
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.07) inset;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+}
+.auth-float b{color:#F8F1E6}
+.auth-float small{color:rgba(246,239,227,.45)}
+.af-ico{background:rgba(192,86,59,.2);color:#F0B393}
+.auth-hero__foot{color:rgba(246,239,227,.28)}
+
+/* 玻璃卡里的表单控件 */
+.auth-card .auth-form h2{color:#F8F1E6;font-size:25px}
+.auth-card .auth-form__sub{color:rgba(246,239,227,.45)}
+.auth-switch{
+  background:rgba(255,247,238,.07);border:1px solid rgba(246,239,227,.08);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.25);border-radius:14px;
+}
+.auth-switch__btn{color:rgba(246,239,227,.55)}
+.auth-switch__btn.is-active{
+  background:linear-gradient(160deg,#FBF3E7,#EADCC9);color:#1C1A17;
+  box-shadow:0 6px 18px -10px rgba(0,0,0,.9);
+}
+.auth-card .field > span{color:rgba(246,239,227,.7)}
+.auth-card .field input{
+  background:rgba(255,247,238,.055);border:1px solid rgba(246,239,227,.13);
+  color:#F8F1E6;box-shadow:none;
+}
+.auth-card .field input::placeholder{color:rgba(246,239,227,.32)}
+.auth-card .field input:focus{
+  border-color:rgba(233,183,155,.75);background:rgba(255,247,238,.09);
+  box-shadow:0 0 0 4px rgba(192,86,59,.18);
+}
+.auth-card .eye{color:rgba(246,239,227,.45)}
+.auth-card .eye:hover{color:#F8F1E6;background:rgba(255,247,238,.08)}
+.auth-card .check{color:rgba(246,239,227,.68)}
+.auth-card .check input{accent-color:#E08A5F}
+.auth-card .link{color:#E9A88C}
+.auth-card .demo-fill{border-color:rgba(246,239,227,.16);color:rgba(246,239,227,.46);background:transparent}
+.auth-card .demo-fill:hover{color:#F8F1E6;border-color:rgba(233,183,155,.55);background:rgba(192,86,59,.14)}
+.auth-card .auth-tip{color:rgba(246,239,227,.32)}
+.auth-card .auth-row{margin-top:4px}
+
+/* —— 16.19 更大胆的全局细节 —— */
+.section__head h2{font-size:15px}
+.page-head h1{font-size:30px;letter-spacing:-.035em}
+.subhead h1{font-size:18px}
+.home-hello__txt b{font-size:17px}
+.svc-card h3{font-size:26px;letter-spacing:-.035em}
+.detail__title{font-size:27px;letter-spacing:-.035em}
+.quick-item span{font-size:11px;font-weight:600}
+
+/* 首页顶部背景缓慢流动，画面不死 */
+@keyframes auroraDrift{
+  0%{transform:translate3d(0,0,0) scale(1);opacity:.9}
+  50%{transform:translate3d(2%,1.5%,0) scale(1.06);opacity:1}
+  100%{transform:translate3d(-1.5%,-1%,0) scale(1.02);opacity:.92}
+}
+.app::before{animation:auroraDrift 26s ease-in-out infinite alternate}
+
+/* 卡片悬停时的流光描边（Uiverse / Hover Border Gradient） */
+.svc-card.spot::before,.m-card.spot::before,.w-card.spot::before,.g-card.spot::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+  background:linear-gradient(115deg,transparent 16%,rgba(233,183,155,0) 28%,rgba(233,183,155,.85) 44%,rgba(192,86,59,.95) 54%,rgba(233,183,155,0) 72%);
+  background-size:300% 100%;background-position:130% 0;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  opacity:0;transition:opacity .45s var(--ease-out);
+}
+.svc-card.spot:hover::before,.m-card.spot:hover::before,.w-card.spot:hover::before,.g-card.spot:hover::before{
+  opacity:1;animation:ringSweep 2.6s linear infinite;
+}
+@keyframes ringSweep{from{background-position:130% 0}to{background-position:-130% 0}}
+
+/* AI 入口：磁性 + 光晕 */
+.ai-fab{--fx:0px;--fy:0px;transform:translate3d(var(--fx),var(--fy),0);will-change:transform}
+.ai-fab:hover{transform:translate3d(var(--fx),calc(var(--fy) - 2px),0)}
+
+/* AI 消息：模糊生成式入场 */
+@keyframes aiMsgIn{from{opacity:0;filter:blur(7px);transform:translateY(8px)}to{opacity:1;filter:blur(0);transform:none}}
+.ai-msg{animation:aiMsgIn .5s var(--ease-out) both}
+
+/* 详情封面：轻微放大入场，飞行结束后收住 */
+.detail.is-ready .detail__cover{animation:coverSettle .7s var(--ease-out) both}
+@keyframes coverSettle{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+@media (max-width:900px){
+  .auth{background:radial-gradient(900px 620px at 50% 28%,#221912 0%,#161210 58%,#100D0B 100%)}
+  .auth::before{background:linear-gradient(180deg,rgba(16,13,11,.5) 0%,rgba(16,13,11,.06) 40%,rgba(16,13,11,.66) 72%,rgba(16,13,11,.9) 100%)}
+  .auth-hero{background:transparent;border-radius:0}
+  .auth-panel{background:transparent;padding:0 16px 30px}
+  .auth-card{
+    background:linear-gradient(170deg,rgba(48,39,32,.93),rgba(24,20,17,.91));
+    border-color:rgba(233,183,155,.16);
+  }
+  .auth-hero h1{font-size:clamp(30px,8.6vw,40px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .app::before{animation:none}
+  .ai-msg{animation:none}
+  .svc-card.spot:hover::before,.m-card.spot:hover::before,.w-card.spot:hover::before,.g-card.spot:hover::before{animation:none;background-position:50% 0}
+  .detail.is-ready .detail__cover{animation:none}
+}
+
+/* —— 16.20 更大声的首页报头与页面标题 —— */
+.home-top{
+  padding:20px 0 16px;border-bottom:1px solid var(--line);margin-bottom:18px;align-items:flex-end;
+}
+.home-hello{align-items:flex-start;gap:12px}
+.home-hello .brand__mark{width:38px;height:38px;border-radius:12px}
+.home-hello__txt small{
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--clay);
+}
+.home-hello__txt b{
+  display:block;margin-top:3px;font-size:clamp(21px,5.4vw,29px);font-weight:650;letter-spacing:-.03em;line-height:1.22;
+  background:linear-gradient(96deg,#1C1A17 0%,#1C1A17 56%,#8B4A32 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.weather{height:30px;padding:0 12px;border-radius:999px;background:rgba(255,253,248,.82);border:1px solid var(--line)}
+.home-tools .avatar{width:38px;height:38px;border-radius:12px;font-size:13px}
+
+.page-head h1,.subhead h1{
+  background:linear-gradient(96deg,#1C1A17 26%,#8B4A32 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .home-hello__txt b,.page-head h1,.subhead h1{color:var(--ink);background:none}
+}
+
+/* 浅色卡片加一条顶部高光，立体一点 */
+.quick-item,.m-card,.w-card,.g-card,.notice-card,.tool-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.85),var(--shadow-sm)}
+
+@media (min-width:980px){
+  .home-top{padding:34px 0 24px}
+  .home-hello .brand__mark{width:42px;height:42px;border-radius:13px}
+  .home-hello__txt b{font-size:34px}
+  .home-tools .avatar{width:42px;height:42px;border-radius:13px}
+  .page-head h1{font-size:34px}
+}
+@media (max-width:560px){
+  .svc-card h3{font-size:23px}
+  .page-head h1{font-size:27px}
+  .detail__title{font-size:24px}
+  .subhead h1{font-size:17px}
+}
+@media (min-width:760px){
+  .detail__title{font-size:30px}
+}
+
+/* 登录主按钮的缓慢呼吸光：页面静下来时也不死板 */
+@keyframes ctaBreath{
+  0%,100%{box-shadow:0 14px 30px -16px rgba(192,86,59,.55)}
+  50%{box-shadow:0 18px 44px -14px rgba(224,138,95,.85)}
+}
+.auth-card .btn--primary{animation:ctaBreath 4.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .auth-card .btn--primary{animation:none}
+}
 /* <<< V3-END */
 </style>
 </head>
@@ -2246,6 +2469,7 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 <!-- ============ Auth ============ -->
 <div class="auth hidden" id="authView">
+  <div class="auth-bg" aria-hidden="true"><canvas id="authCubes"></canvas></div>
   <section class="auth-hero">
     <div class="auth-hero__grid"></div>
     <div class="auth-hero__glow"></div>
@@ -4101,7 +4325,7 @@ function freshmanSectionHTML() {
     </div>
     <div class="g-grid card-flow">
       ${db.guides.map((g, i) => `<button class="g-card" data-action="open-guide" data-id="${g.id}" style="--i:${Math.min(i, 8)}">
-        <span class="g-ico" style="background:${ART_BG[g.art] || '#EEF3F9'}">${art(g.art, '34px')}</span>
+        <span class="g-ico" style="background:${ART_BG[g.art] || '#F1E7D8'}">${art(g.art, '34px')}</span>
         <span class="g-main">
           <span class="g-tag">${esc(g.cat)} · 阅读 ${num(g.reads)}</span>
           <b>${esc(g.title)}</b>
@@ -4137,7 +4361,7 @@ function guideDetailHTML(g) {
     <span class="detail__count">新生必看 · ${esc(g.cat)}</span>
   </div>
   <div class="detail__scroll">
-    <div class="detail__cover" style="background:${ART_BG[g.art] || '#EEF3F9'}">${art(g.art)}</div>
+    <div class="detail__cover" style="background:${ART_BG[g.art] || '#F1E7D8'}">${art(g.art)}</div>
     <div class="detail__body">
       <div class="detail__topic">新生必看 · ${esc(g.cat)} · 阅读 ${num(g.reads)}</div>
       <h1 class="detail__title">${esc(g.title)}</h1>
@@ -4181,7 +4405,7 @@ function openGuide(id, origin) {
     kind: 'guide',
     id: g.id,
     html: guideDetailHTML(g),
-    bg: ART_BG[g.art] || '#EEF3F9',
+    bg: ART_BG[g.art] || '#F1E7D8',
     heroHTML: art(g.art),
     from: originCover ? originCover.getBoundingClientRect() : null,
     bind: (el) => bindGuideDetail(el, g)
@@ -6514,6 +6738,308 @@ $('#aiFab').addEventListener('click', openAI);
   };
   observe(document.getElementById('pageHost'));
   observe(document.getElementById('sheetRoot'));
+})();
+
+
+/* ================= 18. 登录页背景：等距立方体网格（Background Cubes Grid） =================
+   纯 Canvas 2D 实现，无外部依赖：
+   - 等距投影的立方体网格，按对角线从后往前绘制，保证遮挡正确；
+   - 高度由两组正弦波叠加驱动，形成缓慢起伏的地形；
+   - 指针附近立方体抬升，并叠加一枚暖色聚光；
+   - 登录页不可见时停帧，prefers-reduced-motion 下只画一帧静态图。 */
+(() => {
+  const canvas = document.getElementById('authCubes');
+  const view = document.getElementById('authView');
+  if (!canvas || !view) return;
+  const host = canvas.parentNode;
+  let ctx;
+  try { ctx = canvas.getContext('2d', { alpha: true, desynchronized: true }); } catch (e) { return; }
+  if (!ctx) return;
+
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const CUBE_GAP = 0.94;
+
+  let W = 0, H = 0, dpr = 1;
+  let cols = 19, rows = 19, s = 18, cx = 0, cy = 0, hMax = 40;
+  let raf = 0, last = 0, lastDraw = 0, time = 0;
+  let px = 0.5, py = 0.5, tx = 0.5, ty = 0.5;
+
+  function layout() {
+    const rect = canvas.getBoundingClientRect();
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const narrow = W < 720;
+    cols = narrow ? 14 : 19;
+    rows = narrow ? 16 : 19;
+    s = Math.max(10, (W + (narrow ? 210 : 140)) / (cols + rows));
+    hMax = s * 2.45;
+    cx = W * 0.5;
+    cy = H * (narrow ? 0.44 : 0.52) - (cols + rows) * s * 0.1;
+  }
+
+  function cubeHeight(c, r) {
+    const a = c * 0.62 + r * 0.46 - time * 1.15;
+    const b = c * 0.21 - r * 0.33 + time * 0.62;
+    let v = 0.5 + 0.36 * Math.sin(a) + 0.16 * Math.sin(b + 1.7);
+    v = Math.max(0, Math.min(1, v));
+
+    const x = cx + (c - (cols - 1) / 2 - (r - (rows - 1) / 2)) * s;
+    const y = cy + (c - (cols - 1) / 2 + r - (rows - 1) / 2) * s * 0.5;
+    const dx = (x - px * W) / (W * 0.42);
+    const dy = (y - py * H) / (H * 0.42);
+    const near = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy));
+    return Math.min(1, v + near * near * 0.42);
+  }
+
+  function drawCube(x, y, v, alpha) {
+    const h = v * hMax;
+    const topY = y - h;
+    const half = s * CUBE_GAP;
+    const hue = 15 + (1 - v) * 9;
+    const sat = 34 + v * 26;
+    const light = 13 + v * 44;
+
+    ctx.globalAlpha = alpha;
+
+    ctx.fillStyle = `hsl(${hue} ${sat}% ${Math.max(7, light - 15)}%)`;
+    ctx.beginPath();
+    ctx.moveTo(x - half, topY);
+    ctx.lineTo(x, topY + half * 0.5);
+    ctx.lineTo(x, y + half * 0.5);
+    ctx.lineTo(x - half, y);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = `hsl(${hue} ${sat}% ${Math.max(8, light - 8)}%)`;
+    ctx.beginPath();
+    ctx.moveTo(x + half, topY);
+    ctx.lineTo(x, topY + half * 0.5);
+    ctx.lineTo(x, y + half * 0.5);
+    ctx.lineTo(x + half, y);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = `hsl(${hue} ${sat}% ${light}%)`;
+    ctx.beginPath();
+    ctx.moveTo(x, topY - half * 0.5);
+    ctx.lineTo(x + half, topY);
+    ctx.lineTo(x, topY + half * 0.5);
+    ctx.lineTo(x - half, topY);
+    ctx.closePath();
+    ctx.fill();
+
+    if (v > 0.45) {
+      ctx.strokeStyle = `rgba(255, 216, 186, ${(v - 0.45) * 0.5})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    const gx = px * W;
+    const gy = py * H;
+    const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(W, H) * 0.5);
+    glow.addColorStop(0, 'rgba(192, 86, 59, 0.20)');
+    glow.addColorStop(0.45, 'rgba(192, 86, 59, 0.06)');
+    glow.addColorStop(1, 'rgba(192, 86, 59, 0)');
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    const lastD = cols + rows - 2;
+    for (let d = 0; d <= lastD; d++) {
+      for (let c = 0; c < cols; c++) {
+        const r = d - c;
+        if (r < 0 || r >= rows) continue;
+        const x = cx + (c - (cols - 1) / 2 - (r - (rows - 1) / 2)) * s;
+        const y = cy + (c - (cols - 1) / 2 + r - (rows - 1) / 2) * s * 0.5;
+        if (x < -s * 2 || x > W + s * 2 || y < -hMax * 2 || y > H + s * 3) continue;
+        const v = cubeHeight(c, r);
+        drawCube(x, y, v, 0.34 + 0.66 * (d / lastD));
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function frame(now) {
+    raf = 0;
+    const dt = last ? Math.min(48, now - last) : 16;
+    last = now;
+    time += dt / 1000;
+    px += (tx - px) * 0.06;
+    py += (ty - py) * 0.06;
+
+    // 约 30fps，够顺滑又省电
+    if (now - lastDraw >= 27) {
+      lastDraw = now;
+      render();
+    }
+
+    if (!motion.matches && !view.classList.contains('hidden')) {
+      raf = requestAnimationFrame(frame);
+    }
+  }
+
+  function start() {
+    if (raf || motion.matches || view.classList.contains('hidden')) return;
+    last = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  function boot() {
+    layout();
+    if (motion.matches) {
+      time = 2.6;
+      render();
+      host.classList.add('is-ready');
+      return;
+    }
+    host.classList.add('is-ready');
+    start();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+
+  window.addEventListener('resize', () => {
+    layout();
+    if (!raf) {
+      last = 0;
+      render();
+    }
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    tx = e.clientX / Math.max(1, window.innerWidth);
+    ty = e.clientY / Math.max(1, window.innerHeight);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  new MutationObserver(() => {
+    if (view.classList.contains('hidden')) stop();
+    else start();
+  }).observe(view, { attributes: true, attributeFilter: ['class'] });
+})();
+/* ================= 19. 微交互：磁性 AI 入口 ================= */
+(() => {
+  const fab = document.getElementById('aiFab');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!fab || reduce.matches) return;
+
+  let rect = null;
+  let measuredAt = 0;
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+
+  const measure = () => {
+    rect = fab.getBoundingClientRect();
+    measuredAt = performance.now();
+  };
+  // 应用页一开始是隐藏的，rect 会是全 0；命中前按需重测
+  const ensureRect = () => {
+    if (!rect || rect.width === 0 || performance.now() - measuredAt > 500) measure();
+  };
+  const loop = () => {
+    raf = 0;
+    cx += (tx - cx) * 0.16;
+    cy += (ty - cy) * 0.16;
+    fab.style.setProperty('--fx', cx.toFixed(2) + 'px');
+    fab.style.setProperty('--fy', cy.toFixed(2) + 'px');
+    if (Math.abs(tx - cx) > 0.15 || Math.abs(ty - cy) > 0.15) raf = requestAnimationFrame(loop);
+  };
+
+  const onMove = (e) => {
+    if (e.pointerType === 'touch') return;
+    ensureRect();
+    if (!rect || rect.width === 0) return;
+    const mx = rect.left + rect.width / 2;
+    const my = rect.top + rect.height / 2;
+    const dx = e.clientX - mx;
+    const dy = e.clientY - my;
+    const dist = Math.hypot(dx, dy);
+    const radius = 170;
+    if (dist < radius) {
+      const f = 1 - dist / radius;
+      tx = dx * 0.26 * f;
+      ty = dy * 0.26 * f;
+    } else {
+      tx = 0;
+      ty = 0;
+    }
+    if (!raf) raf = requestAnimationFrame(loop);
+  };
+
+  measure();
+  window.addEventListener('resize', measure);
+  window.addEventListener('scroll', measure, { passive: true });
+  window.addEventListener('pointermove', onMove, { passive: true });
+})();
+
+/* ================= 20. 微交互：服务卡 3D 倾斜 + 指针暖光 ================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const app = document.querySelector('.app');
+  if (!app) return;
+
+  // 指针暖光：写 --gx / --gy，背景里那一层径向渐变跟着走
+  let gx = 50, gy = 18, tgx = 50, tgy = 18, glowRaf = 0;
+  const paintGlow = () => {
+    glowRaf = 0;
+    gx += (tgx - gx) * 0.12;
+    gy += (tgy - gy) * 0.12;
+    app.style.setProperty('--gx', gx.toFixed(1) + '%');
+    app.style.setProperty('--gy', gy.toFixed(1) + '%');
+    if (Math.abs(tgx - gx) > 0.2 || Math.abs(tgy - gy) > 0.2) glowRaf = requestAnimationFrame(paintGlow);
+  };
+
+  if (!reduce.matches) {
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      tgx = (e.clientX / Math.max(1, window.innerWidth)) * 100;
+      tgy = (e.clientY / Math.max(1, window.innerHeight)) * 100;
+      if (!glowRaf) glowRaf = requestAnimationFrame(paintGlow);
+    }, { passive: true });
+  }
+
+  // 服务卡 3D 倾斜（仅精细指针）
+  if (!fine.matches || reduce.matches) return;
+  let active = null;
+  const reset = () => {
+    if (active) active.style.transform = '';
+    active = null;
+  };
+  document.addEventListener('pointermove', (e) => {
+    const card = e.target && e.target.closest ? e.target.closest('.svc-card') : null;
+    if (active && active !== card) reset();
+    if (!card) return;
+    active = card;
+    const r = card.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform =
+      'perspective(1000px) rotateX(' + (-py * 8).toFixed(2) + 'deg) rotateY(' + (px * 9).toFixed(2) + 'deg) translateY(-3px) scale(1.008)';
+  }, { passive: true });
+  document.addEventListener('pointerdown', reset, { passive: true });
+  window.addEventListener('scroll', reset, { passive: true });
 })();
 
 </script>

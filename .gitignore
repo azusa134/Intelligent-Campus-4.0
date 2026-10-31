@@ -9,6 +9,9 @@ desktop.ini
 要求/
 .workbuddy/
 
+# WorkBuddy 应用标记（内部）
+.wbapp_*.genie
+
 # 临时与构建产物
 _dev/
 *.log
